@@ -2,6 +2,7 @@ import { Transition, Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
 import { classNames } from '../app/utils';
+import WalletButton from './app/WalletButton';
 
 interface Props {
   navigation: any[],
@@ -77,6 +78,7 @@ function MobileSidebar({
                                   ? 'bg-gray-800 text-white'
                                   : 'text-gray-400 hover:text-white hover:bg-gray-800',
                                 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
+                                item.disabled && 'cursor-not-allowed opacity-50',
                               )}
                             >
                               <item.icon className="h-6 w-6 shrink-0" aria-hidden="true" />
@@ -87,7 +89,7 @@ function MobileSidebar({
                       </ul>
                     </li>
                     <li>
-                      <div className="text-xs font-semibold leading-6 text-gray-400">Your teams</div>
+                      {/* <div className="text-xs font-semibold leading-6 text-gray-400">Your teams</div> */}
                       <ul className="-mx-2 mt-2 space-y-1">
                         {teams.map((team) => (
                           <li key={team.name}>
@@ -110,7 +112,10 @@ function MobileSidebar({
                       </ul>
                     </li>
                     <li className="-mx-6 mt-auto">
-                      <a
+                      <div className="mx-6 my-6">
+                        <WalletButton />
+                      </div>
+                      {/* <a
                         href="#"
                         className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white hover:bg-gray-800"
                       >
@@ -121,7 +126,7 @@ function MobileSidebar({
                         />
                         <span className="sr-only">Your profile</span>
                         <span aria-hidden="true">Tom Cook</span>
-                      </a>
+                      </a> */}
                     </li>
                   </ul>
                 </nav>
