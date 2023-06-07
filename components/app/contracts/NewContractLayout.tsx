@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { useAccount } from 'wagmi';
-import NewContractSlideover from './NewContractSlideover';
 import PrimaryButton from '../../PrimaryButton';
+import NewContractSlideover from './NewContractSlideover';
 
 function NewContractLayout() {
   const [slideoverOpen, setSlideoverOpen] = useState<boolean>(false);
