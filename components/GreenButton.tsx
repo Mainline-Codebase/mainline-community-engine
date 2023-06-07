@@ -3,7 +3,7 @@ interface Props {
   onClick?: () => void,
 }
 
-function PrimaryButton({ text, onClick }: Props) {
+function GreenButton({ text, onClick }: Props) {
   return (
     <>
       {/* <button
@@ -27,7 +27,7 @@ function PrimaryButton({ text, onClick }: Props) {
       <button
         type="button"
         onClick={onClick}
-        className="rounded-md bg-primary-button px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-button/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+        className="rounded-md bg-green-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
       >
         {text}
       </button>
@@ -42,4 +42,4 @@ function PrimaryButton({ text, onClick }: Props) {
   );
 }
 
-export default PrimaryButton;
+export default GreenButton;

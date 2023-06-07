@@ -1,5 +1,5 @@
 import {
-  SignalIcon, Cog6ToothIcon, UsersIcon, FolderIcon,
+  SignalIcon, Cog6ToothIcon, UsersIcon, FolderIcon, ListBulletIcon,
 } from '@heroicons/react/24/outline';
 
 export function classNames(...classes) {
@@ -8,13 +8,16 @@ export function classNames(...classes) {
 
 export const navigation = [
   {
-    name: 'KOLs', href: '#', icon: UsersIcon, current: false,
+    name: 'Dashboard', href: '/', icon: ListBulletIcon, current: true,
   },
   {
-    name: 'Projects', href: '#', icon: FolderIcon, current: true,
+    name: 'KOLs', href: '/', icon: UsersIcon, current: false, disabled: true,
   },
   {
-    name: 'Activity', href: '', icon: SignalIcon, current: false, disabled: true,
+    name: 'Projects', href: '/', icon: FolderIcon, current: false, disabled: true,
+  },
+  {
+    name: 'Activity', href: '/', icon: SignalIcon, current: false, disabled: true,
   },
   // {
   //   name: 'Domains', href: '#', icon: GlobeAltIcon, current: false,
@@ -23,7 +26,7 @@ export const navigation = [
   //   name: 'Usage', href: '#', icon: ChartBarSquareIcon, current: false,
   // },
   {
-    name: 'Settings', href: '', icon: Cog6ToothIcon, current: false, disabled: true,
+    name: 'Settings', href: '/', icon: Cog6ToothIcon, current: false, disabled: true,
   },
 ];
 

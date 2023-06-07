@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { classNames } from '../app/utils';
 import WalletButton from './app/WalletButton';
 
@@ -24,7 +25,7 @@ function DesktopSidebar({ navigation, teams }: Props) {
               <ul className="-mx-2 space-y-1">
                 {navigation.map((item) => (
                   <li key={item.name}>
-                    <a
+                    <Link
                       href={item.href}
                       className={classNames(
                         item.current
@@ -36,7 +37,7 @@ function DesktopSidebar({ navigation, teams }: Props) {
                     >
                       <item.icon className="h-6 w-6 shrink-0" aria-hidden="true" />
                       {item.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
