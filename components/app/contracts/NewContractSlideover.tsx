@@ -111,26 +111,14 @@ function NewContractSlideover({ open, setOpen }: Props) {
                               </div>
                             </div>
                           </div>
-                          <div className="pb-6 pt-4">
-                            {/* <div className="flex text-sm">
-                              <a
-                                href="#"
-                                className="group inline-flex items-center font-medium text-indigo-600 hover:text-indigo-900"
-                              >
-                                <LinkIcon
-                                  className="h-5 w-5 text-indigo-500 group-hover:text-indigo-900"
-                                  aria-hidden="true"
-                                />
-                                <span className="ml-2">Copy link</span>
-                              </a>
-                            </div> */}
+                          <div className="pb-6 pt-2">
                             <div className="mt-2 flex text-sm">
                               <Link href="https://getmainline.io" target="_blank" className="group inline-flex items-center text-gray-900 hover:text-gray-900">
                                 <QuestionMarkCircleIcon
                                   className="h-5 w-5 text-gray-900 group-hover:text-gray-900"
                                   aria-hidden="true"
                                 />
-                                <span className="ml-2">Learn more about Mainline contracts</span>
+                                <span className="ml-2 hover:underline">Learn more about Mainline contracts</span>
                               </Link>
                             </div>
                           </div>
