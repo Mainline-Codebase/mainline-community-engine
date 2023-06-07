@@ -668,6 +668,6 @@ export const abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-];
+] as const;
 
 export default abi;

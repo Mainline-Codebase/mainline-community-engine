@@ -9,7 +9,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { QuestionMarkCircleIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 
-import { abi } from '../../../contract/abi';
+import { communityEngineABI } from '../../../contract/generated';
 
 interface Props {
   open: boolean,
@@ -22,18 +22,24 @@ function NewContractSlideover({ open, setOpen }: Props) {
   const { config: configERC20 } = usePrepareContractWrite({
     address: '0x6f14c02fc1f78322cfd7d707ab90f18bad3b54f5',
     abi: erc20ABI,
+    chainId: 11155111,
     functionName: 'approve',
     account: address,
-    args: ['0x454ba1eca1a4fb7148526aa47cf228613b9eec1a', 1],
+    args: ['0x454ba1eca1a4fb7148526aa47cf228613b9eec1a', BigInt(1000000)],
+    enabled: true,
   });
 
   const { config } = usePrepareContractWrite({
     address: '0x07d17D72C629b8b4a6B0dAF78c730C9b56dc39B8',
-    abi,
+    abi: communityEngineABI,
+    chainId: 11155111,
     functionName: 'addProject',
     account: address,
-    args: ['Test', '0x454ba1eca1a4fb7148526aa47cf228613b9eec1a', '0x6f14c02fc1f78322cfd7d707ab90f18bad3b54f5', 1],
+    args: ['Test', '0x454ba1eca1a4fb7148526aa47cf228613b9eec1a', '0x6f14c02fc1f78322cfd7d707ab90f18bad3b54f5', BigInt(1)],
+    enabled: false,
   });
+
+  console.log(config);
 
   const {
     data, isLoading, isSuccess, write,
@@ -165,7 +171,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                       <button
                         type="button"
                         className="ml-4 inline-flex justify-center rounded-md bg-primary-button px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-button/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                        onClick={() => write()}
+                        onClick={() => write?.()}
                       >
                         Submit
                       </button>

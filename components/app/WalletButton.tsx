@@ -19,7 +19,7 @@ function WalletButton() {
       <div className="flex-none rounded-full p-1 text-green-400 bg-green-400/10 mr-2">
         <div className="h-2 w-2 rounded-full bg-current" />
       </div>
-      <span className="text-white">{shortenWalletAddress(address)}</span>
+      <span className="text-white">{shortenWalletAddress(address || '')}</span>
     </div>
   ) : (
     <PrimaryButton text="Connect Wallet" onClick={() => connect()} />
