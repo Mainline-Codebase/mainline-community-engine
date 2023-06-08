@@ -21,6 +21,8 @@ function NewContractSlideover({ open, setOpen }: Props) {
 
   const [projectName, setProjectName] = useState<string>('');
   const [kolAddress, setKolAddress] = useState<string>('');
+  const [kolTwitterHandle, setKolTwitterHandle] = useState<string>('');
+  const [keywords, setKeywords] = useState<string>('');
   // const [tokenAddress, setTokenAddress] = useState<string>('');
   const [tokenAmount, setTokenAmount] = useState<number>(1);
 
@@ -41,12 +43,12 @@ function NewContractSlideover({ open, setOpen }: Props) {
     functionName: 'addProject',
     account: address,
     // @ts-ignore
-    args: [projectName, kolAddress, USDC_CONTRACT_ADDRESS, BigInt(tokenAmount)],
+    args: [projectName, kolAddress, USDC_CONTRACT_ADDRESS, BigInt(tokenAmount), kolTwitterHandle, keywords.split(',').map((keyword) => keyword.trim())],
     enabled: !!address,
   });
 
   const {
-    isLoading: isLoadingERC20, isSuccess: isSuccessERC20, write: writeERC20,
+    write: writeERC20,
   } = useContractWrite(configERC20);
 
   const {
@@ -159,10 +161,29 @@ function NewContractSlideover({ open, setOpen }: Props) {
                             <div>
                               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                               <label
+                                htmlFor="kol-twitter-handle"
+                                className="block text-sm font-medium leading-6 text-gray-900"
+                              >
+                                3) KOL Twitter Handle
+                              </label>
+                              <div className="mt-2">
+                                <input
+                                  type="text"
+                                  name="kol-twitter-handle"
+                                  id="kol-twitter-handle"
+                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                  placeholder="@naval"
+                                  onChange={(e) => setKolTwitterHandle(e.target.value)}
+                                />
+                              </div>
+                            </div>
+                            <div>
+                              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                              <label
                                 htmlFor="token-payout-amount"
                                 className="block text-sm font-medium leading-6 text-gray-900"
                               >
-                                3) Token Payout Amount (USDC)
+                                4) Token Payout Amount (USDC)
                               </label>
                               <div className="mt-2">
                                 <input
@@ -180,10 +201,28 @@ function NewContractSlideover({ open, setOpen }: Props) {
                             <div>
                               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                               <label
+                                htmlFor="keywords"
+                                className="block text-sm font-medium leading-6 text-gray-900"
+                              >
+                                5) Keywords (comma separated)
+                              </label>
+                              <div className="mt-2">
+                                <textarea
+                                  name="keywords"
+                                  id="keywords"
+                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                  placeholder="web3, blockchain, Chainlink"
+                                  onChange={(e) => setKeywords(e.target.value)}
+                                />
+                              </div>
+                            </div>
+                            <div>
+                              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                              <label
                                 htmlFor="token-payout-amount"
                                 className="block text-sm font-medium leading-6 text-gray-900"
                               >
-                                4) Approve USDC Spending
+                                6) Approve USDC Spending
                               </label>
                               <div className="mt-2">
                                 <PrimaryButton text="Approve" onClick={() => writeERC20?.()} />
@@ -203,9 +242,9 @@ function NewContractSlideover({ open, setOpen }: Props) {
                       </button>
                       <button
                         type="button"
-                        className={classNames('ml-4 inline-flex justify-center rounded-md bg-primary-button px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-button/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2', (!isSuccessERC20 || isLoadingERC20 || !projectName || !kolAddress || !tokenAmount) && 'opacity-50 cursor-not-allowed')}
+                        className={classNames('ml-4 inline-flex justify-center rounded-md bg-primary-button px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-button/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2', (!projectName || !kolAddress || !kolTwitterHandle || !tokenAmount || !keywords) && 'opacity-50 cursor-not-allowed')}
                         onClick={() => writeAddProject?.()}
-                        disabled={!isSuccessERC20 || isLoadingERC20 || !projectName || !kolAddress || !tokenAmount}
+                        disabled={!projectName || !kolAddress || !kolTwitterHandle || !tokenAmount || !keywords}
                       >
                         Submit
                       </button>

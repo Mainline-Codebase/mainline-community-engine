@@ -1,4 +1,4 @@
-export const abi = [{ inputs: [{ internalType: 'address', name: 'oracle', type: 'address' }], stateMutability: 'nonpayable', type: 'constructor' }, { inputs: [], name: 'AgreementAlreadySigned', type: 'error' }, { inputs: [], name: 'EmptyArgs', type: 'error' }, { inputs: [], name: 'EmptySecrets', type: 'error' }, { inputs: [], name: 'EmptySource', type: 'error' }, { inputs: [], name: 'NoInlineSecrets', type: 'error' }, { inputs: [], name: 'ProjectDoesNotExist', type: 'error' }, { inputs: [], name: 'RequestIsAlreadyPending', type: 'error' }, { inputs: [], name: 'RequestIsNotPending', type: 'error' }, { inputs: [], name: 'SenderIsNotRegistry', type: 'error' }, {
+export const abi = [{ inputs: [{ internalType: 'address', name: 'oracle', type: 'address' }], stateMutability: 'nonpayable', type: 'constructor' }, { inputs: [], name: 'AgreementAlreadySigned', type: 'error' }, { inputs: [], name: 'EmptyArgs', type: 'error' }, { inputs: [], name: 'EmptySecrets', type: 'error' }, { inputs: [], name: 'EmptySource', type: 'error' }, { inputs: [], name: 'NoInlineSecrets', type: 'error' }, { inputs: [], name: 'ProjectDoesNotExist', type: 'error' }, { inputs: [], name: 'ProjectRequiresKeywords', type: 'error' }, { inputs: [], name: 'RequestIsAlreadyPending', type: 'error' }, { inputs: [], name: 'RequestIsNotPending', type: 'error' }, { inputs: [], name: 'SenderIsNotRegistry', type: 'error' }, { inputs: [], name: 'SignerIsNotKOL', type: 'error' }, {
   anonymous: false,
   inputs: [{
     indexed: true, internalType: 'bytes32', name: 'requestId', type: 'bytes32',
@@ -44,7 +44,7 @@ export const abi = [{ inputs: [{ internalType: 'address', name: 'oracle', type: 
 }, {
   inputs: [], name: 'acceptOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function',
 }, {
-  inputs: [{ internalType: 'string', name: 'projectName', type: 'string' }, { internalType: 'address', name: 'kol', type: 'address' }, { internalType: 'address', name: 'tokenAddress', type: 'address' }, { internalType: 'uint256', name: 'numTokensToPayout', type: 'uint256' }], name: 'addProject', outputs: [], stateMutability: 'nonpayable', type: 'function',
+  inputs: [{ internalType: 'string', name: 'projectName', type: 'string' }, { internalType: 'address', name: 'kol', type: 'address' }, { internalType: 'address', name: 'tokenAddress', type: 'address' }, { internalType: 'uint256', name: 'numTokensToPayout', type: 'uint256' }, { internalType: 'string', name: 'kolTwitterHandle', type: 'string' }, { internalType: 'string[]', name: 'tweetKeywords', type: 'string[]' }], name: 'addProject', outputs: [], stateMutability: 'nonpayable', type: 'function',
 }, {
   inputs: [{ internalType: 'address', name: 'oracleAddress', type: 'address' }, { internalType: 'bytes32', name: 'requestId', type: 'bytes32' }], name: 'addSimulatedRequestId', outputs: [], stateMutability: 'nonpayable', type: 'function',
 }, {
@@ -63,7 +63,7 @@ export const abi = [{ inputs: [{ internalType: 'address', name: 'oracle', type: 
   inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
   name: 'getKOLProjects',
   outputs: [{
-    components: [{ internalType: 'address', name: 'owner', type: 'address' }, { internalType: 'string', name: 'name', type: 'string' }, { internalType: 'address', name: 'kol', type: 'address' }, { internalType: 'address', name: 'tokenAddress', type: 'address' }, { internalType: 'uint256', name: 'numTokensToPayout', type: 'uint256' }, { internalType: 'bool', name: 'isComplete', type: 'bool' }, { internalType: 'bool', name: 'kolHasAgreed', type: 'bool' }, { internalType: 'bool', name: 'exists', type: 'bool' }, { internalType: 'string', name: 'tweet', type: 'string' }], internalType: 'struct CommunityEngine.Project[]', name: '', type: 'tuple[]',
+    components: [{ internalType: 'address', name: 'owner', type: 'address' }, { internalType: 'string', name: 'name', type: 'string' }, { internalType: 'address', name: 'kol', type: 'address' }, { internalType: 'address', name: 'tokenAddress', type: 'address' }, { internalType: 'uint256', name: 'numTokensToPayout', type: 'uint256' }, { internalType: 'bool', name: 'isComplete', type: 'bool' }, { internalType: 'bool', name: 'kolHasAgreed', type: 'bool' }, { internalType: 'bool', name: 'exists', type: 'bool' }, { internalType: 'string', name: 'kolTwitterHandle', type: 'string' }, { internalType: 'string[]', name: 'tweetKeywords', type: 'string[]' }], internalType: 'struct CommunityEngine.Project[]', name: '', type: 'tuple[]',
   }],
   stateMutability: 'view',
   type: 'function',
@@ -71,7 +71,7 @@ export const abi = [{ inputs: [{ internalType: 'address', name: 'oracle', type: 
   inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
   name: 'getProjectOwnerProjects',
   outputs: [{
-    components: [{ internalType: 'address', name: 'owner', type: 'address' }, { internalType: 'string', name: 'name', type: 'string' }, { internalType: 'address', name: 'kol', type: 'address' }, { internalType: 'address', name: 'tokenAddress', type: 'address' }, { internalType: 'uint256', name: 'numTokensToPayout', type: 'uint256' }, { internalType: 'bool', name: 'isComplete', type: 'bool' }, { internalType: 'bool', name: 'kolHasAgreed', type: 'bool' }, { internalType: 'bool', name: 'exists', type: 'bool' }, { internalType: 'string', name: 'tweet', type: 'string' }], internalType: 'struct CommunityEngine.Project[]', name: '', type: 'tuple[]',
+    components: [{ internalType: 'address', name: 'owner', type: 'address' }, { internalType: 'string', name: 'name', type: 'string' }, { internalType: 'address', name: 'kol', type: 'address' }, { internalType: 'address', name: 'tokenAddress', type: 'address' }, { internalType: 'uint256', name: 'numTokensToPayout', type: 'uint256' }, { internalType: 'bool', name: 'isComplete', type: 'bool' }, { internalType: 'bool', name: 'kolHasAgreed', type: 'bool' }, { internalType: 'bool', name: 'exists', type: 'bool' }, { internalType: 'string', name: 'kolTwitterHandle', type: 'string' }, { internalType: 'string[]', name: 'tweetKeywords', type: 'string[]' }], internalType: 'struct CommunityEngine.Project[]', name: '', type: 'tuple[]',
   }],
   stateMutability: 'view',
   type: 'function',
@@ -90,11 +90,11 @@ export const abi = [{ inputs: [{ internalType: 'address', name: 'oracle', type: 
 }, {
   inputs: [{ internalType: 'address', name: '', type: 'address' }, { internalType: 'uint256', name: '', type: 'uint256' }], name: 'projectOwnerProjectNames', outputs: [{ internalType: 'string', name: '', type: 'string' }], stateMutability: 'view', type: 'function',
 }, {
-  inputs: [{ internalType: 'address', name: '', type: 'address' }, { internalType: 'string', name: '', type: 'string' }], name: 'projects', outputs: [{ internalType: 'address', name: 'owner', type: 'address' }, { internalType: 'string', name: 'name', type: 'string' }, { internalType: 'address', name: 'kol', type: 'address' }, { internalType: 'address', name: 'tokenAddress', type: 'address' }, { internalType: 'uint256', name: 'numTokensToPayout', type: 'uint256' }, { internalType: 'bool', name: 'isComplete', type: 'bool' }, { internalType: 'bool', name: 'kolHasAgreed', type: 'bool' }, { internalType: 'bool', name: 'exists', type: 'bool' }, { internalType: 'string', name: 'tweet', type: 'string' }], stateMutability: 'view', type: 'function',
+  inputs: [{ internalType: 'address', name: '', type: 'address' }, { internalType: 'string', name: '', type: 'string' }], name: 'projects', outputs: [{ internalType: 'address', name: 'owner', type: 'address' }, { internalType: 'string', name: 'name', type: 'string' }, { internalType: 'address', name: 'kol', type: 'address' }, { internalType: 'address', name: 'tokenAddress', type: 'address' }, { internalType: 'uint256', name: 'numTokensToPayout', type: 'uint256' }, { internalType: 'bool', name: 'isComplete', type: 'bool' }, { internalType: 'bool', name: 'kolHasAgreed', type: 'bool' }, { internalType: 'bool', name: 'exists', type: 'bool' }, { internalType: 'string', name: 'kolTwitterHandle', type: 'string' }], stateMutability: 'view', type: 'function',
 }, {
   inputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }], name: 'requestIdToProjectMapping', outputs: [{ internalType: 'address', name: 'owner', type: 'address' }, { internalType: 'string', name: 'projectName', type: 'string' }], stateMutability: 'view', type: 'function',
 }, {
-  inputs: [{ internalType: 'string', name: 'projectName', type: 'string' }, { internalType: 'string', name: 'tweet', type: 'string' }], name: 'signAgreement', outputs: [], stateMutability: 'nonpayable', type: 'function',
+  inputs: [{ internalType: 'address', name: 'owner', type: 'address' }, { internalType: 'string', name: 'projectName', type: 'string' }], name: 'signAgreement', outputs: [], stateMutability: 'nonpayable', type: 'function',
 }, {
   inputs: [{ internalType: 'address', name: 'to', type: 'address' }], name: 'transferOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function',
 }, {
