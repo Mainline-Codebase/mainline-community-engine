@@ -27,7 +27,7 @@ function SecondaryButton({ text, onClick }: Props) {
       <button
         type="button"
         onClick={onClick}
-        className="rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-white/20"
+        className="rounded-md bg-primary-overlay/100 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-overlay/90"
       >
         {text}
       </button>

@@ -2,8 +2,8 @@ import { Transition, Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
 import Link from 'next/link';
-import { classNames } from '../app/utils';
-import WalletButton from './app/WalletButton';
+import { classNames } from '../app/app/utils';
+import WalletSlot from './app/WalletSlot';
 
 interface Props {
   navigation: any[],
@@ -114,7 +114,7 @@ function MobileSidebar({
                     </li>
                     <li className="-mx-6 mt-auto">
                       <div className="mx-6 my-6">
-                        <WalletButton />
+                        <WalletSlot />
                       </div>
                       {/* <a
                         href="#"

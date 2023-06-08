@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useAccount } from 'wagmi';
 import PrimaryButton from '../../PrimaryButton';
-import NewContractSlideover from './NewContractSlideover';
+import NewContractSlideover from './NewProjectSlideover';
 
 function NewContractLayout() {
   const [slideoverOpen, setSlideoverOpen] = useState<boolean>(false);
@@ -11,7 +11,7 @@ function NewContractLayout() {
 
   return !isConnected ? null : (
     <>
-      <PrimaryButton text="New Contract" onClick={() => setSlideoverOpen(true)} />
+      <PrimaryButton text="New Project" onClick={() => setSlideoverOpen(true)} />
       <NewContractSlideover open={slideoverOpen} setOpen={setSlideoverOpen} />
     </>
   );

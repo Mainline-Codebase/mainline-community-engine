@@ -1,15 +1,15 @@
 'use client';
 
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import {
   useAccount, useContractWrite, usePrepareContractWrite, erc20ABI,
 } from 'wagmi';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { QuestionMarkCircleIcon } from '@heroicons/react/20/solid';
-import Link from 'next/link';
-
-import { communityEngineABI } from '../../../contract/generated';
+import { communityEngineABI } from '../../../contracts/generated';
+import PrimaryButton from '../../PrimaryButton';
+import { classNames } from '../../../app/app/utils';
+import { MCE_CONTRACT_ADDRESS, USDC_CONTRACT_ADDRESS } from '../../../types';
 
 interface Props {
   open: boolean,
@@ -19,31 +19,42 @@ interface Props {
 function NewContractSlideover({ open, setOpen }: Props) {
   const { address } = useAccount();
 
+  const [projectName, setProjectName] = useState<string>('');
+  const [kolAddress, setKolAddress] = useState<string>('');
+  // const [tokenAddress, setTokenAddress] = useState<string>('');
+  const [tokenAmount, setTokenAmount] = useState<number>(1);
+
   const { config: configERC20 } = usePrepareContractWrite({
-    address: '0x6f14c02fc1f78322cfd7d707ab90f18bad3b54f5',
+    address: USDC_CONTRACT_ADDRESS,
     abi: erc20ABI,
     chainId: 11155111,
     functionName: 'approve',
     account: address,
-    args: ['0x454ba1eca1a4fb7148526aa47cf228613b9eec1a', BigInt(1000000)],
-    enabled: true,
+    args: [MCE_CONTRACT_ADDRESS, BigInt(tokenAmount || 1000)],
+    enabled: !!address,
   });
 
-  const { config } = usePrepareContractWrite({
-    address: '0x07d17D72C629b8b4a6B0dAF78c730C9b56dc39B8',
+  const { config: configAddProject } = usePrepareContractWrite({
+    address: MCE_CONTRACT_ADDRESS,
     abi: communityEngineABI,
     chainId: 11155111,
     functionName: 'addProject',
     account: address,
-    args: ['Test', '0x454ba1eca1a4fb7148526aa47cf228613b9eec1a', '0x6f14c02fc1f78322cfd7d707ab90f18bad3b54f5', BigInt(1)],
-    enabled: false,
+    // @ts-ignore
+    args: [projectName, kolAddress, USDC_CONTRACT_ADDRESS, BigInt(tokenAmount)],
+    enabled: !!address,
   });
 
-  console.log(config);
+  const {
+    isLoading: isLoadingERC20, isSuccess: isSuccessERC20, write: writeERC20,
+  } = useContractWrite(configERC20);
 
   const {
-    data, isLoading, isSuccess, write,
-  } = useContractWrite(config);
+    // data: addProjectData,
+    // isLoading: isLoadingAddProject,
+    // isSuccess: isSuccessAddProject,
+    write: writeAddProject,
+  } = useContractWrite(configAddProject);
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -67,7 +78,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                       <div className="bg-primary-bg/90 px-4 py-6 sm:px-6">
                         <div className="flex items-center justify-between">
                           <Dialog.Title className="text-base font-semibold leading-6 text-white">
-                            New Contract
+                            New Project
                           </Dialog.Title>
                           <div className="ml-3 flex h-7 items-center">
                             <button
@@ -82,7 +93,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                         </div>
                         <div className="mt-6">
                           <p className="text-sm text-gray-300">
-                            Get started with a new contract by completing the necessary steps in the form below.
+                            Get started with a new project by completing the necessary steps in the form below.
                           </p>
                         </div>
                       </div>
@@ -92,6 +103,25 @@ function NewContractSlideover({ open, setOpen }: Props) {
                             <div>
                               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                               <label
+                                htmlFor="project-name"
+                                className="block text-sm font-medium leading-6 text-gray-900"
+                              >
+                                1) Project Name
+                              </label>
+                              <div className="mt-2">
+                                <input
+                                  type="text"
+                                  name="project-name"
+                                  id="project-name"
+                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                  placeholder="Project ABC"
+                                  onChange={(e) => setProjectName(e.target.value)}
+                                />
+                              </div>
+                            </div>
+                            {/* <div> */}
+                            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                            {/* <label
                                 htmlFor="token-address"
                                 className="block text-sm font-medium leading-6 text-gray-900"
                               >
@@ -106,22 +136,23 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                   placeholder="0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
                                 />
                               </div>
-                            </div>
+                            </div> */}
                             <div>
                               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                               <label
-                                htmlFor="tweet-url"
+                                htmlFor="kol-address"
                                 className="block text-sm font-medium leading-6 text-gray-900"
                               >
-                                Tweet URL
+                                2) KOL Wallet Address
                               </label>
                               <div className="mt-2">
                                 <input
                                   type="text"
-                                  name="tweet-url"
-                                  id="tweet-url"
+                                  name="kol-address"
+                                  id="kol-address"
                                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                  placeholder="https://twitter.com/naval/status/1594921414640926721"
+                                  placeholder="0x7cd4d5CF4B677292481fC05c6906c95d7996C573"
+                                  onChange={(e) => setKolAddress(e.target.value)}
                                 />
                               </div>
                             </div>
@@ -131,7 +162,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                 htmlFor="token-payout-amount"
                                 className="block text-sm font-medium leading-6 text-gray-900"
                               >
-                                Token Payout Amount
+                                3) Token Payout Amount (USDC)
                               </label>
                               <div className="mt-2">
                                 <input
@@ -142,19 +173,21 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                   id="token-payout-amount"
                                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                   placeholder="1000"
+                                  onChange={(e) => setTokenAmount(Number(e.target.value))}
                                 />
                               </div>
                             </div>
-                          </div>
-                          <div className="pb-6 pt-2">
-                            <div className="mt-2 flex text-sm">
-                              <Link href="https://getmainline.io" target="_blank" className="group inline-flex items-center text-gray-900 hover:text-gray-900">
-                                <QuestionMarkCircleIcon
-                                  className="h-5 w-5 text-gray-900 group-hover:text-gray-900"
-                                  aria-hidden="true"
-                                />
-                                <span className="ml-2 hover:underline">Learn more about Mainline contracts</span>
-                              </Link>
+                            <div>
+                              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                              <label
+                                htmlFor="token-payout-amount"
+                                className="block text-sm font-medium leading-6 text-gray-900"
+                              >
+                                4) Approve USDC Spending
+                              </label>
+                              <div className="mt-2">
+                                <PrimaryButton text="Approve" onClick={() => writeERC20?.()} />
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -170,8 +203,9 @@ function NewContractSlideover({ open, setOpen }: Props) {
                       </button>
                       <button
                         type="button"
-                        className="ml-4 inline-flex justify-center rounded-md bg-primary-button px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-button/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                        onClick={() => write?.()}
+                        className={classNames('ml-4 inline-flex justify-center rounded-md bg-primary-button px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-button/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2', (!isSuccessERC20 || isLoadingERC20 || !projectName || !kolAddress || !tokenAmount) && 'opacity-50 cursor-not-allowed')}
+                        onClick={() => writeAddProject?.()}
+                        disabled={!isSuccessERC20 || isLoadingERC20 || !projectName || !kolAddress || !tokenAmount}
                       >
                         Submit
                       </button>

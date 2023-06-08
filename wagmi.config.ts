@@ -1,6 +1,6 @@
 import { defineConfig } from '@wagmi/cli';
 import { react } from '@wagmi/cli/plugins';
-import { abi } from './contract/abi';
+import { abi } from './contracts/abi';
 
 export default defineConfig({
   out: 'src/generated.ts',
