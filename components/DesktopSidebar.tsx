@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { classNames } from '../app/utils';
-import WalletButton from './app/WalletButton';
+import { classNames } from '../app/app/utils';
+import WalletSlot from './app/WalletSlot';
 
 interface Props {
   navigation: any[],
@@ -67,7 +67,7 @@ function DesktopSidebar({ navigation, teams }: Props) {
             </li>
             <li className="-mx-6 mt-auto">
               <div className="flex items-center justify-start px-6 py-6 text-sm font-semibold leading-6 text-white">
-                <WalletButton />
+                <WalletSlot />
               </div>
               {/* <a
                 href="#"

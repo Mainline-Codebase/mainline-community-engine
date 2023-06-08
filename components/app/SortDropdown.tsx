@@ -1,7 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronUpDownIcon } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
-import { classNames } from '../../app/utils';
+import { classNames } from '../../app/app/utils';
 
 function SortDropdown() {
   return (
