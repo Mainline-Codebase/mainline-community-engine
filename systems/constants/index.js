@@ -24,7 +24,7 @@ const ReturnType = {
 // Add providers for each network
 const PROVIDERS = {
   mumbai: new ethers.providers.JsonRpcProvider(
-    `https://polygon-mumbai.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`
+    `https://eth-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`
   ),
 }
 
@@ -34,7 +34,7 @@ const SECRETS = { apiKey: process.env.NEXT_PUBLIC_COINMARKETCAP_API_KEY ?? "" }
 // Update return type depending on the source code
 const RETURN_TYPE = ReturnType.uint256
 
-const GAS_LIMIT = 100000
+const GAS_LIMIT = 300000
 
 /**
  * @notice Don't change these

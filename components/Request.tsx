@@ -31,7 +31,7 @@ function Request() {
 
     const res = await executeRequest(
       [inputAmount.toString(), (inputAPY * 100).toString(), inputMonths.toString()],
-      'mumbai',
+      'sepolia',
       updateNotification,
     );
 
