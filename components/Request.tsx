@@ -13,7 +13,7 @@ function Request() {
   const [isRequesting, setIsRequesting] = useState(false);
   const notification = useRef(null);
 
-  const updateNotification = (message) => {
+  const updateNotification = (message: any) => {
     if (notification.current) {
       toast.update(notification.current, {
         render: message,
@@ -25,6 +25,7 @@ function Request() {
   };
 
   const performRequest = async () => {
+    // @ts-ignore
     notification.current = toast.loading('Initiating request...');
     setIsRequesting(true);
 
@@ -38,6 +39,7 @@ function Request() {
       console.log('ERROR: ', res.result);
       const isKnownError = res.result.toString().includes('transaction failed');
 
+      // @ts-ignore
       toast.update(notification.current, {
         render: `Request failed. ${isKnownError ? 'This subscription might be out of LINK.' : ''}`,
         type: 'error',
@@ -45,6 +47,7 @@ function Request() {
         autoClose: 5000,
       });
     } else {
+      // @ts-ignore
       toast.update(notification.current, {
         render: 'Request successful.',
         type: 'success',
