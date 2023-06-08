@@ -2,7 +2,7 @@
 
 import { Fragment, useState } from 'react';
 import {
-  useAccount, useContractWrite, usePrepareContractWrite, erc20ABI,
+  useAccount, useContractWrite, erc20ABI,
 } from 'wagmi';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
@@ -23,40 +23,38 @@ function NewContractSlideover({ open, setOpen }: Props) {
   const [kolAddress, setKolAddress] = useState<string>('');
   const [kolTwitterHandle, setKolTwitterHandle] = useState<string>('');
   const [keywords, setKeywords] = useState<string>('');
-  // const [tokenAddress, setTokenAddress] = useState<string>('');
   const [tokenAmount, setTokenAmount] = useState<number>(1);
 
-  const { config: configERC20 } = usePrepareContractWrite({
+  const {
+    write: writeERC20,
+  } = useContractWrite({
     address: USDC_CONTRACT_ADDRESS,
     abi: erc20ABI,
     chainId: 11155111,
     functionName: 'approve',
     account: address,
     args: [MCE_CONTRACT_ADDRESS, BigInt(tokenAmount || 1000)],
-    enabled: !!address,
   });
 
-  const { config: configAddProject } = usePrepareContractWrite({
+  const {
+    write: writeAddProject,
+  } = useContractWrite({
     address: MCE_CONTRACT_ADDRESS,
     abi: communityEngineABI,
     chainId: 11155111,
     functionName: 'addProject',
     account: address,
-    // @ts-ignore
-    args: [projectName, kolAddress, USDC_CONTRACT_ADDRESS, BigInt(tokenAmount), kolTwitterHandle, keywords.split(',').map((keyword) => keyword.trim())],
-    enabled: !!address,
+    args: [
+      projectName,
+      // @ts-ignore
+      kolAddress,
+      USDC_CONTRACT_ADDRESS,
+      BigInt(tokenAmount),
+      kolTwitterHandle,
+      keywords.split(',').map((keyword) => keyword.trim()),
+    ],
+    onSuccess: () => setOpen(false),
   });
-
-  const {
-    write: writeERC20,
-  } = useContractWrite(configERC20);
-
-  const {
-    // data: addProjectData,
-    // isLoading: isLoadingAddProject,
-    // isSuccess: isSuccessAddProject,
-    write: writeAddProject,
-  } = useContractWrite(configAddProject);
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -121,24 +119,6 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                 />
                               </div>
                             </div>
-                            {/* <div> */}
-                            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                            {/* <label
-                                htmlFor="token-address"
-                                className="block text-sm font-medium leading-6 text-gray-900"
-                              >
-                                Token Address
-                              </label>
-                              <div className="mt-2">
-                                <input
-                                  type="text"
-                                  name="token-address"
-                                  id="token-address"
-                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                  placeholder="0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
-                                />
-                              </div>
-                            </div> */}
                             <div>
                               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                               <label
