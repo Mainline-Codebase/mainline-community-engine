@@ -1,8 +1,8 @@
 {
   "name": "mce.vercel.app",
-  "author": "bolandonl",
+  "author": "boland.co",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
