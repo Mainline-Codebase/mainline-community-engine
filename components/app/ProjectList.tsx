@@ -93,10 +93,10 @@ function ProjectList() {
                         'rounded-full flex-none py-1 px-2 ml-2 text-xs font-medium ring-1 ring-inset',
                       )}
                     >
-                      {(role === 'po' && project.kolHasAgreed) && 'Ready to Verify'}
-                      {(role === 'po' && !project.kolHasAgreed) && 'Pending KOL Agreement'}
-                      {(role === 'kol' && project.kolHasAgreed) && 'Signed Agreement'}
-                      {(role === 'kol' && !project.kolHasAgreed) && 'Pending Agreement'}
+                      {(role === 'po' && project.kolHasAgreed && !project.isComplete) && 'Ready to Verify'}
+                      {(role === 'po' && !project.kolHasAgreed && !project.isComplete) && 'Pending KOL Agreement'}
+                      {(role === 'kol' && project.kolHasAgreed && !project.isComplete) && 'Signed Agreement'}
+                      {(role === 'kol' && !project.kolHasAgreed && !project.isComplete) && 'Pending Agreement'}
                       {project.isComplete && 'Completed'}
                     </div>
                   </div>
