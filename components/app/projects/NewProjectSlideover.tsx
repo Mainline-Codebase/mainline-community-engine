@@ -72,10 +72,10 @@ function NewContractSlideover({ open, setOpen }: Props) {
                 leaveFrom="translate-x-0"
                 leaveTo="translate-x-full"
               >
-                <Dialog.Panel className="pointer-events-auto w-screen max-w-lg">
-                  <form className="flex h-full flex-col divide-y divide-gray-200 bg-white shadow-xl">
+                <Dialog.Panel className="pointer-events-auto w-screen max-w-xl">
+                  <form className="flex h-full flex-col divide-y divide-gray-200 bg-white shadow-2xl shadow-primary-overlay">
                     <div className="h-0 flex-1 overflow-y-auto bg-primary-bg/10">
-                      <div className="bg-primary-bg/90 px-4 py-6 sm:px-6">
+                      <div className="bg-primary-bg px-4 py-6 sm:px-6">
                         <div className="flex items-center justify-between">
                           <Dialog.Title className="text-base font-semibold leading-6 text-white">
                             New Project
@@ -212,7 +212,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-shrink-0 justify-end px-4 py-4 bg-primary-bg/90">
+                    <div className="flex flex-shrink-0 justify-end px-4 py-4 bg-primary-bg">
                       <button
                         type="button"
                         className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100"
