@@ -29,7 +29,7 @@ if (!mainlineResponse.error) {
 let keywordsFound = false
 for (let i = 0; i < twitterKeywords.length; i++) {
   const keywordIncludedTweets = tweets.filter((keyword) =>
-    keyword.toLowerCase().includes(twitterKeywords[i].toLowerCase())
+    keyword?.toLowerCase().includes(twitterKeywords[i].toLowerCase())
   )
   if (keywordIncludedTweets.length > 0) {
     keywordsFound = true
