@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Dialog } from '@headlessui/react';
-import { useAccount, useConnect } from 'wagmi';
+import { useConnect } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -12,20 +12,23 @@ import { useRole } from '../contexts/RoleContext';
 
 function Page() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isLoadingPO, setIsLoadingPO] = useState(false);
+  const [isLoadingKOL, setIsLoadingKOL] = useState(false);
   const { setRole } = useRole();
-
-  const { isConnected } = useAccount();
   const router = useRouter();
 
   const { connect } = useConnect({
     connector: new InjectedConnector(),
-  });
-
-  useEffect(() => {
-    if (isConnected) {
+    onError: () => {
+      setIsLoadingPO(false);
+      setIsLoadingKOL(false);
+    },
+    onSuccess: () => {
+      setIsLoadingPO(false);
+      setIsLoadingKOL(false);
       router.push('/app');
-    }
-  }, [isConnected, router]);
+    },
+  });
 
   return (
     <div className="bg-gray-900 h-screen">
@@ -99,14 +102,20 @@ function Page() {
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <PrimaryButton
                 text="Project Owner Login"
+                loading={isLoadingPO}
+                disabled={isLoadingKOL}
                 onClick={() => {
+                  setIsLoadingPO(true);
                   connect();
                   setRole('po');
                 }}
               />
               <SecondaryButton
                 text="Key Opinion Leader Login"
+                loading={isLoadingKOL}
+                disabled={isLoadingPO}
                 onClick={() => {
+                  setIsLoadingKOL(true);
                   connect();
                   setRole('kol');
                 }}

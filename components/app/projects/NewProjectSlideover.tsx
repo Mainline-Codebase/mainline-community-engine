@@ -2,13 +2,12 @@
 
 import { Fragment, useState } from 'react';
 import {
-  useAccount, useContractWrite, erc20ABI, useContractRead,
+  useAccount, useContractWrite, erc20ABI, useContractRead, useWaitForTransaction,
 } from 'wagmi';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { communityEngineABI } from '../../../contracts/generated';
 import PrimaryButton from '../../PrimaryButton';
-import { classNames } from '../../../utils';
 import { MCE_CONTRACT_ADDRESS, USDC_CONTRACT_ADDRESS } from '../../../constants';
 
 interface Props {
@@ -18,6 +17,7 @@ interface Props {
 
 function NewContractSlideover({ open, setOpen }: Props) {
   const { address } = useAccount();
+  const [isLoadingSubmitProject, setIsLoadingSubmitProject] = useState<boolean>(false);
 
   const [projectName, setProjectName] = useState<string>('');
   const [kolAddress, setKolAddress] = useState<string>('');
@@ -26,7 +26,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
   const [tokenAmount, setTokenAmount] = useState<number>(1);
 
   const {
-    write: writeERC20,
+    write: writeERC20, isLoading: isLoadingERC20,
   } = useContractWrite({
     address: USDC_CONTRACT_ADDRESS,
     abi: erc20ABI,
@@ -37,7 +37,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
   });
 
   const {
-    write: writeAddProject,
+    data, write: writeAddProject,
   } = useContractWrite({
     address: MCE_CONTRACT_ADDRESS,
     abi: communityEngineABI,
@@ -53,7 +53,16 @@ function NewContractSlideover({ open, setOpen }: Props) {
       kolTwitterHandle,
       keywords.split(',').map((keyword) => keyword.trim()),
     ],
-    onSuccess: () => setOpen(false),
+    onError: () => setIsLoadingSubmitProject(false),
+  });
+
+  useWaitForTransaction({
+    hash: data?.hash,
+    enabled: !!data?.hash,
+    onSuccess: () => {
+      setIsLoadingSubmitProject(false);
+      setOpen(false);
+    },
   });
 
   const { data: allowance } = useContractRead({
@@ -230,7 +239,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                   6) Approve USDC Spending
                                 </label>
                                 <div className="mt-2">
-                                  <PrimaryButton text="Approve" onClick={() => writeERC20?.()} />
+                                  <PrimaryButton text="Approve" onClick={() => writeERC20?.()} loading={isLoadingERC20} />
                                 </div>
                               </div>
                             )}
@@ -238,7 +247,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-shrink-0 justify-end px-4 py-4 bg-primary-bg">
+                    <div className="flex flex-shrink-0 justify-end px-4 py-4 bg-primary-bg space-x-3">
                       <button
                         type="button"
                         className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100"
@@ -246,14 +255,15 @@ function NewContractSlideover({ open, setOpen }: Props) {
                       >
                         Cancel
                       </button>
-                      <button
-                        type="button"
-                        className={classNames('ml-4 inline-flex justify-center rounded-md bg-primary-button px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-button/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2', (!projectName || !kolAddress || !kolTwitterHandle || !tokenAmount || !keywords) && 'opacity-50 cursor-not-allowed')}
-                        onClick={() => writeAddProject?.()}
-                        disabled={!projectName || !kolAddress || !kolTwitterHandle || !tokenAmount || !keywords}
-                      >
-                        Submit
-                      </button>
+                      <PrimaryButton
+                        text="Submit"
+                        onClick={() => {
+                          setIsLoadingSubmitProject(true);
+                          writeAddProject?.();
+                        }}
+                        disabled={!projectName || !kolAddress || !kolTwitterHandle || !tokenAmount || !keywords || isLoadingERC20}
+                        loading={isLoadingSubmitProject}
+                      />
                     </div>
                   </form>
                 </Dialog.Panel>
