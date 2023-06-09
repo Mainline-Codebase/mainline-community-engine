@@ -5,6 +5,7 @@ import { Dialog } from '@headlessui/react';
 import { useAccount, useConnect } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import PrimaryButton from '../components/PrimaryButton';
 import SecondaryButton from '../components/SecondaryButton';
 import { useRole } from '../contexts/RoleContext';
@@ -31,7 +32,7 @@ function Page() {
       <header className="absolute inset-x-0 top-0 z-50">
         <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
-            <a href="#" className="-m-1.5 p-1.5">
+            <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Mainline</span>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -39,7 +40,7 @@ function Page() {
                 src="https://getmainline.io/public/img/logo.png"
                 alt=""
               />
-            </a>
+            </Link>
           </div>
         </nav>
         <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>

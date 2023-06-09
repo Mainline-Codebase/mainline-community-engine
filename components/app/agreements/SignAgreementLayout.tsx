@@ -2,7 +2,7 @@
 
 import { useAccount, useContractWrite, usePrepareContractWrite } from 'wagmi';
 import PrimaryButton from '../../PrimaryButton';
-import { MCE_CONTRACT_ADDRESS } from '../../../types';
+import { MCE_CONTRACT_ADDRESS } from '../../../constants';
 import { communityEngineABI } from '../../../contracts/generated';
 
 interface Props {

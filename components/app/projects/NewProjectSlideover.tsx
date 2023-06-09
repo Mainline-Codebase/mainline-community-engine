@@ -2,14 +2,14 @@
 
 import { Fragment, useState } from 'react';
 import {
-  useAccount, useContractWrite, erc20ABI, useContractRead
+  useAccount, useContractWrite, erc20ABI, useContractRead,
 } from 'wagmi';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { communityEngineABI } from '../../../contracts/generated';
 import PrimaryButton from '../../PrimaryButton';
 import { classNames } from '../../../utils';
-import { MCE_CONTRACT_ADDRESS, USDC_CONTRACT_ADDRESS } from '../../../types';
+import { MCE_CONTRACT_ADDRESS, USDC_CONTRACT_ADDRESS } from '../../../constants';
 
 interface Props {
   open: boolean,
@@ -55,7 +55,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
     ],
     onSuccess: () => setOpen(false),
   });
-  
+
   const { data: allowance } = useContractRead({
     address: USDC_CONTRACT_ADDRESS,
     abi: erc20ABI,
@@ -65,7 +65,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
     // @ts-ignore
     args: [address, MCE_CONTRACT_ADDRESS],
     enabled: !!address,
-    watch: true
+    watch: true,
   });
 
   return (
@@ -85,7 +85,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                 leaveTo="translate-x-full"
               >
                 <Dialog.Panel className="pointer-events-auto w-screen max-w-xl">
-                  <form className="flex h-full flex-col divide-y divide-gray-200 bg-white shadow-lg shadow-indigo-600">
+                  <form className="flex h-full flex-col divide-y divide-gray-200 bg-white shadow-md shadow-indigo-600">
                     <div className="h-0 flex-1 overflow-y-auto bg-primary-bg/10">
                       <div className="bg-primary-bg px-4 py-6 sm:px-6">
                         <div className="flex items-center justify-between">
@@ -210,18 +210,18 @@ function NewContractSlideover({ open, setOpen }: Props) {
                             </div>
                             {(Number(allowance) / 10 ** 18) < tokenAmount && (
                               <div>
-                              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                              <label
-                                htmlFor="token-payout-amount"
-                                className="block text-sm font-medium leading-6 text-gray-900"
-                              >
+                                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                                <label
+                                  htmlFor="token-payout-amount"
+                                  className="block text-sm font-medium leading-6 text-gray-900"
+                                >
 
-                                6) Approve USDC Spending
-                              </label>
-                              <div className="mt-2">
-                                <PrimaryButton text="Approve" onClick={() => writeERC20?.()} />
+                                  6) Approve USDC Spending
+                                </label>
+                                <div className="mt-2">
+                                  <PrimaryButton text="Approve" onClick={() => writeERC20?.()} />
+                                </div>
                               </div>
-                            </div>
                             )}
                           </div>
                         </div>

@@ -6,7 +6,7 @@ import { UserIcon } from '@heroicons/react/24/solid';
 import { UserGroupIcon } from '@heroicons/react/24/outline';
 import { classNames, shortenWalletAddress } from '../../utils';
 import { communityEngineABI } from '../../contracts/generated';
-import { MCE_CONTRACT_ADDRESS } from '../../types';
+import { MCE_CONTRACT_ADDRESS } from '../../constants';
 import { useRole } from '../../contexts/RoleContext';
 import SignAgreementLayout from './agreements/SignAgreementLayout';
 import VerifyAgreementLayout from './agreements/VerifyAgreementLayout';
