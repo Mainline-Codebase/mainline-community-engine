@@ -1,15 +1,21 @@
 'use client';
 
-import { useAccount, useContractWrite, usePrepareContractWrite } from 'wagmi';
+import {
+  useAccount, useContractWrite, usePrepareContractWrite, useWaitForTransaction,
+} from 'wagmi';
 import PrimaryButton from '../../PrimaryButton';
 import { MCE_CONTRACT_ADDRESS } from '../../../constants';
 import { communityEngineABI } from '../../../contracts/generated';
 
 interface Props {
-  project: any
+  projectName: string
+  projectOwner: string
 }
 
-function SignAgreementLayout({ project }: Props) {
+function SignAgreementLayout({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  projectName, projectOwner,
+}: Props) {
   const { isConnected, address } = useAccount();
 
   const { config } = usePrepareContractWrite({
@@ -19,16 +25,25 @@ function SignAgreementLayout({ project }: Props) {
     functionName: 'signAgreement',
     account: address,
     // @ts-ignore
-    args: [project.owner, project.name],
-    enabled: !!address,
+    args: [projectOwner, projectName],
+    enabled: false,
   });
 
   const {
+    data,
     write,
   } = useContractWrite(config);
 
+  useWaitForTransaction({
+    hash: data?.hash,
+    enabled: !!data?.hash,
+  });
+
   return !isConnected ? null : (
-    <PrimaryButton text="Sign Agreement" onClick={() => write?.()} />
+    <PrimaryButton
+      text="Sign Agreement"
+      onClick={() => write?.()}
+    />
   );
 }
 

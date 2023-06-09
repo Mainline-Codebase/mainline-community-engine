@@ -16,7 +16,6 @@ function VerifyAgreementLayout({ project }: Props) {
   const { isConnected, address } = useAccount();
   const [isRequesting, setIsRequesting] = useState(false);
   const notification = useRef(null);
-  console.log(project);
 
   const updateNotification = (message: any) => {
     if (notification.current) {
@@ -68,7 +67,10 @@ function VerifyAgreementLayout({ project }: Props) {
   };
 
   return !isConnected ? null : (
-    <SecondaryButton text="Verify" onClick={performRequest} /* disabled={isRequesting} */ />
+    <SecondaryButton
+      text="Verify"
+      onClick={performRequest}
+    />
   );
 }
 
