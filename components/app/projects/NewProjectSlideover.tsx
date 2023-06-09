@@ -73,7 +73,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                 leaveTo="translate-x-full"
               >
                 <Dialog.Panel className="pointer-events-auto w-screen max-w-xl">
-                  <form className="flex h-full flex-col divide-y divide-gray-200 bg-white shadow-2xl shadow-primary-overlay">
+                  <form className="flex h-full flex-col divide-y divide-gray-200 bg-white shadow-lg shadow-indigo-600">
                     <div className="h-0 flex-1 overflow-y-auto bg-primary-bg/10">
                       <div className="bg-primary-bg px-4 py-6 sm:px-6">
                         <div className="flex items-center justify-between">
