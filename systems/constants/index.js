@@ -23,13 +23,13 @@ const ReturnType = {
 
 // Add providers for each network
 const PROVIDERS = {
-  mumbai: new ethers.providers.JsonRpcProvider(
+  sepolia: new ethers.providers.JsonRpcProvider(
     `https://eth-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`
   ),
 }
 
 // Add secrets
-const SECRETS = { apiKey: process.env.NEXT_PUBLIC_COINMARKETCAP_API_KEY ?? "" }
+const SECRETS = { }
 
 // Update return type depending on the source code
 const RETURN_TYPE = ReturnType.uint256
