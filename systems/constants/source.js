@@ -1,22 +1,40 @@
 export default `// This example shows how to calculate a continuously compounding interested rate.
-// This calculation would require significant on-chain gas, but is easy for a decentralized oracle network.
+let twitterHandle
+if (args[2].charAt(0) == "@") {
+  twitterHandle = args[2].substring(1)
+} else {
+  twitterHandle = args[2]
+}
 
-// Arguments can be provided when a request is initated on-chain and used in the request source code as shown below
-const principalAmount = parseInt(args[0])
-const APYTimes100 = parseInt(args[1])
-const APYAsDecimalPercentage = APYTimes100 / 100 / 100
+const twitterKeywords = args[3].split(",")
 
-const timeInYears = 1 / 12 // represents 1 month
-const eulersNumber = 2.7183
+// call the Mainline API to retrieve a list of recent tweets of the KOL
+const mainlineResponse = await Functions.makeHttpRequest({
+  url: \`https://app.getmainline.com/api/tweets/handle/\${twitterHandle}\`,
+  headers: { "Api-Key": "c0620cb3-e210-4cae-8fdc-f2356f655174" },
+})
 
-// Continuously-compounding interest formula: A = Pe^(rt)
-const totalAmountAfterInterest = principalAmount * eulersNumber ** (APYAsDecimalPercentage * timeInYears)
+console.log(mainlineResponse)
 
-// The source code MUST return a Buffer or the request will return an error message
-// Use one of the following functions to convert to a Buffer representing the response bytes that are returned to the client smart contract:
-// - Functions.encodeUint256
-// - Functions.encodeInt256
-// - Functions.encodeString
-// Or return a custom Buffer for a custom byte encoding
-return Functions.encodeUint256(Math.round(totalAmountAfterInterest))
+const tweets = []
+if (!mainlineResponse.error) {
+  for (let i = 0; i < mainlineResponse.data.length; i++) {
+    tweets.push(mainlineResponse.data[i].tweet)
+  }
+} else {
+  console.log("Mainline Error")
+}
+
+// check if tweets contain the keywords
+let keywordsFound = false
+for (let i = 0; i < twitterKeywords.length; i++) {
+  const keywordIncludedTweets = tweets.filter((keyword) =>
+    keyword.toLowerCase().includes(twitterKeywords[i].toLowerCase())
+  )
+  if (keywordIncludedTweets.length > 0) {
+    keywordsFound = true
+  }
+}
+
+return Functions.encodeUint256(keywordsFound ? 1 : 0)
 `
