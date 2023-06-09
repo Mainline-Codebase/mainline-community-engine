@@ -113,7 +113,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                   type="text"
                                   name="project-name"
                                   id="project-name"
-                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                   placeholder="Project ABC"
                                   onChange={(e) => setProjectName(e.target.value)}
                                 />
@@ -132,7 +132,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                   type="text"
                                   name="kol-address"
                                   id="kol-address"
-                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                   placeholder="0x7cd4d5CF4B677292481fC05c6906c95d7996C573"
                                   onChange={(e) => setKolAddress(e.target.value)}
                                 />
@@ -151,7 +151,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                   type="text"
                                   name="kol-twitter-handle"
                                   id="kol-twitter-handle"
-                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                   placeholder="@naval"
                                   onChange={(e) => setKolTwitterHandle(e.target.value)}
                                 />
@@ -172,7 +172,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                   max="100000"
                                   name="token-payout-amount"
                                   id="token-payout-amount"
-                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                   placeholder="1000"
                                   onChange={(e) => setTokenAmount(Number(e.target.value))}
                                 />
@@ -190,7 +190,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                 <textarea
                                   name="keywords"
                                   id="keywords"
-                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                   placeholder="web3, blockchain, Chainlink"
                                   onChange={(e) => setKeywords(e.target.value)}
                                 />
