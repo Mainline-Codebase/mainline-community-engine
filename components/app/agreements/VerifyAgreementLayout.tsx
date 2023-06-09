@@ -1,7 +1,9 @@
 'use client';
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { useRef, useState } from 'react';
-import { toast } from "react-toastify"
+import { toast } from 'react-toastify';
 import { useAccount } from 'wagmi';
 import SecondaryButton from '../../SecondaryButton';
 import executeRequest from '../../../systems/request/request';

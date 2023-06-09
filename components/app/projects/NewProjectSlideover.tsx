@@ -71,6 +71,17 @@ function NewContractSlideover({ open, setOpen }: Props) {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={setOpen}>
+        <Transition.Child
+          as={Fragment}
+          enter="transition-opacity ease-linear duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity ease-linear duration-300"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-gray-900/80" />
+        </Transition.Child>
         <div className="fixed inset-0" />
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
@@ -85,7 +96,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                 leaveTo="translate-x-full"
               >
                 <Dialog.Panel className="pointer-events-auto w-screen max-w-xl">
-                  <form className="flex h-full flex-col divide-y divide-gray-200 bg-white shadow-md shadow-indigo-600">
+                  <form className="flex h-full flex-col divide-y divide-gray-200 bg-white">
                     <div className="h-0 flex-1 overflow-y-auto bg-primary-bg/10">
                       <div className="bg-primary-bg px-4 py-6 sm:px-6">
                         <div className="flex items-center justify-between">
