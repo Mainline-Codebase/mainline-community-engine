@@ -5,7 +5,7 @@ import { publicProvider } from 'wagmi/providers/public';
 import {
   configureChains, sepolia, createConfig, WagmiConfig,
 } from 'wagmi';
-import { classNames } from './app/utils';
+import { classNames } from '../utils';
 import './globals.css';
 import RoleProvider from '../contexts/RoleContext';
 
@@ -29,6 +29,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.png" />
+        <title>Mainline Community Engine</title>
+      </head>
       <body className={classNames(inter.className, 'h-full')}>
         <WagmiConfig config={config}>
           <RoleProvider>{children}</RoleProvider>

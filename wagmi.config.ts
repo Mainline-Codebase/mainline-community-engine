@@ -1,4 +1,6 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { defineConfig } from '@wagmi/cli';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { react } from '@wagmi/cli/plugins';
 import { abi } from './contracts/abi';
 

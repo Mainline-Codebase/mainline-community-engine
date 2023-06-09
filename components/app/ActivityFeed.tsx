@@ -1,3 +1,4 @@
+import { SignalIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 const activityItems: any[] = [];
@@ -12,9 +13,16 @@ function ActivityFeed() {
         </Link>
       </header>
       <ul className="divide-y divide-white/5">
+        {activityItems.length === 0 && (
+          <li className="px-4 py-4 sm:px-6 lg:px-8 mt-10 flex-col items-center justify-center">
+            <SignalIcon className="mx-auto h-12 w-12 text-gray-400 animate-pulse" />
+            <h3 className="mt-2 text-sm font-semibold text-white text-center">Coming Soon</h3>
+          </li>
+        )}
         {activityItems?.map((item) => (
           <li key={item.commit} className="px-4 py-4 sm:px-6 lg:px-8">
             <div className="flex items-center gap-x-3">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={item.user.imageUrl} alt="" className="h-6 w-6 flex-none rounded-full bg-gray-800" />
               <h3 className="flex-auto truncate text-sm font-semibold leading-6 text-white">{item.user.name}</h3>
               <time dateTime={item.dateTime} className="flex-none text-xs text-gray-600">

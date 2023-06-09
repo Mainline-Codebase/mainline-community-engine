@@ -2,7 +2,7 @@
 
 import { useAccount, useDisconnect } from 'wagmi';
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
-import { shortenWalletAddress } from '../../app/app/utils';
+import { shortenWalletAddress } from '../../utils';
 
 function WalletSlot() {
   const { address, isConnected } = useAccount();

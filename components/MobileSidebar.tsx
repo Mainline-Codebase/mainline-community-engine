@@ -2,7 +2,7 @@ import { Transition, Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
 import Link from 'next/link';
-import { classNames } from '../app/app/utils';
+import { classNames } from '../utils';
 import WalletSlot from './app/WalletSlot';
 
 interface Props {
