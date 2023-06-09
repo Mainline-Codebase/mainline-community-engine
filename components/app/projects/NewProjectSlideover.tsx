@@ -33,7 +33,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
     chainId: 11155111,
     functionName: 'approve',
     account: address,
-    args: [MCE_CONTRACT_ADDRESS, BigInt(tokenAmount || 1000)],
+    args: [MCE_CONTRACT_ADDRESS, BigInt((tokenAmount || 1000) * 10 ** 18)],
   });
 
   const {
@@ -49,7 +49,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
       // @ts-ignore
       kolAddress,
       USDC_CONTRACT_ADDRESS,
-      BigInt(tokenAmount),
+      BigInt(tokenAmount * 10 ** 18),
       kolTwitterHandle,
       keywords.split(',').map((keyword) => keyword.trim()),
     ],

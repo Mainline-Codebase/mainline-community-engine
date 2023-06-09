@@ -79,7 +79,7 @@ function ProjectList() {
                     <span className="truncate">{project.name}</span>
                     <span className="text-gray-400">/</span>
                     <span className="whitespace-nowrap">
-                      <b>{Number(project.numTokensToPayout)}</b>
+                      <b>{Number(project.numTokensToPayout) / 10 ** 18}</b>
                       {' '}
                       USDC Payout
                     </span>
