@@ -2,14 +2,14 @@
 
 import { Fragment, useState } from 'react';
 import {
-  useAccount, useContractWrite, erc20ABI,
+  useAccount, useContractWrite, erc20ABI, useContractRead,
 } from 'wagmi';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { communityEngineABI } from '../../../contracts/generated';
 import PrimaryButton from '../../PrimaryButton';
 import { classNames } from '../../../utils';
-import { MCE_CONTRACT_ADDRESS, USDC_CONTRACT_ADDRESS } from '../../../types';
+import { MCE_CONTRACT_ADDRESS, USDC_CONTRACT_ADDRESS } from '../../../constants';
 
 interface Props {
   open: boolean,
@@ -33,7 +33,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
     chainId: 11155111,
     functionName: 'approve',
     account: address,
-    args: [MCE_CONTRACT_ADDRESS, BigInt(tokenAmount || 1000)],
+    args: [MCE_CONTRACT_ADDRESS, BigInt((tokenAmount || 1000) * 10 ** 18)],
   });
 
   const {
@@ -49,16 +49,39 @@ function NewContractSlideover({ open, setOpen }: Props) {
       // @ts-ignore
       kolAddress,
       USDC_CONTRACT_ADDRESS,
-      BigInt(tokenAmount),
+      BigInt(tokenAmount * 10 ** 18),
       kolTwitterHandle,
       keywords.split(',').map((keyword) => keyword.trim()),
     ],
     onSuccess: () => setOpen(false),
   });
 
+  const { data: allowance } = useContractRead({
+    address: USDC_CONTRACT_ADDRESS,
+    abi: erc20ABI,
+    chainId: 11155111,
+    functionName: 'allowance',
+    account: address,
+    // @ts-ignore
+    args: [address, MCE_CONTRACT_ADDRESS],
+    enabled: !!address,
+    watch: true,
+  });
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={setOpen}>
+        <Transition.Child
+          as={Fragment}
+          enter="transition-opacity ease-linear duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity ease-linear duration-300"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-gray-900/80" />
+        </Transition.Child>
         <div className="fixed inset-0" />
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
@@ -73,7 +96,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                 leaveTo="translate-x-full"
               >
                 <Dialog.Panel className="pointer-events-auto w-screen max-w-xl">
-                  <form className="flex h-full flex-col divide-y divide-gray-200 bg-white shadow-lg shadow-indigo-600">
+                  <form className="flex h-full flex-col divide-y divide-gray-200 bg-white">
                     <div className="h-0 flex-1 overflow-y-auto bg-primary-bg/10">
                       <div className="bg-primary-bg px-4 py-6 sm:px-6">
                         <div className="flex items-center justify-between">
@@ -196,18 +219,21 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                 />
                               </div>
                             </div>
-                            <div>
-                              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                              <label
-                                htmlFor="token-payout-amount"
-                                className="block text-sm font-medium leading-6 text-gray-900"
-                              >
-                                6) Approve USDC Spending
-                              </label>
-                              <div className="mt-2">
-                                <PrimaryButton text="Approve" onClick={() => writeERC20?.()} />
+                            {(Number(allowance) / 10 ** 18) < tokenAmount && (
+                              <div>
+                                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                                <label
+                                  htmlFor="token-payout-amount"
+                                  className="block text-sm font-medium leading-6 text-gray-900"
+                                >
+
+                                  6) Approve USDC Spending
+                                </label>
+                                <div className="mt-2">
+                                  <PrimaryButton text="Approve" onClick={() => writeERC20?.()} />
+                                </div>
                               </div>
-                            </div>
+                            )}
                           </div>
                         </div>
                       </div>

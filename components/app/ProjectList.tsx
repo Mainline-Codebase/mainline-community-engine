@@ -6,7 +6,7 @@ import { UserIcon } from '@heroicons/react/24/solid';
 import { UserGroupIcon } from '@heroicons/react/24/outline';
 import { classNames, shortenWalletAddress } from '../../utils';
 import { communityEngineABI } from '../../contracts/generated';
-import { MCE_CONTRACT_ADDRESS } from '../../types';
+import { MCE_CONTRACT_ADDRESS } from '../../constants';
 import { useRole } from '../../contexts/RoleContext';
 import SignAgreementLayout from './agreements/SignAgreementLayout';
 import VerifyAgreementLayout from './agreements/VerifyAgreementLayout';
@@ -79,7 +79,7 @@ function ProjectList() {
                     <span className="truncate">{project.name}</span>
                     <span className="text-gray-400">/</span>
                     <span className="whitespace-nowrap">
-                      <b>{Number(project.numTokensToPayout)}</b>
+                      <b>{Number(project.numTokensToPayout) / 10 ** 18}</b>
                       {' '}
                       USDC Payout
                     </span>
@@ -93,10 +93,10 @@ function ProjectList() {
                         'rounded-full flex-none py-1 px-2 ml-2 text-xs font-medium ring-1 ring-inset',
                       )}
                     >
-                      {(role === 'po' && project.kolHasAgreed) && 'Ready to Verify'}
-                      {(role === 'po' && !project.kolHasAgreed) && 'Pending KOL Agreement'}
-                      {(role === 'kol' && project.kolHasAgreed) && 'Signed Agreement'}
-                      {(role === 'kol' && !project.kolHasAgreed) && 'Pending Agreement'}
+                      {(role === 'po' && project.kolHasAgreed && !project.isComplete) && 'Ready to Verify'}
+                      {(role === 'po' && !project.kolHasAgreed && !project.isComplete) && 'Pending KOL Agreement'}
+                      {(role === 'kol' && project.kolHasAgreed && !project.isComplete) && 'Signed Agreement'}
+                      {(role === 'kol' && !project.kolHasAgreed && !project.isComplete) && 'Pending Agreement'}
                       {project.isComplete && 'Completed'}
                     </div>
                   </div>

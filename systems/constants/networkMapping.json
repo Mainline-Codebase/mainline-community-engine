@@ -1,6 +1,6 @@
 {
-  "mumbai": {
-    "contractAddress": "0x57B6782546e0519B9A750C251F944BF8733CC2a8",
-    "subId": 230
+  "sepolia": {
+    "contractAddress": "0xbcDFA5aE396D926d2ECCbC1BE97c4b534a6cB778",
+    "subId": 444
   }
 }

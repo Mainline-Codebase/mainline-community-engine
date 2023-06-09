@@ -30,8 +30,8 @@ function Request() {
     setIsRequesting(true);
 
     const res = await executeRequest(
-      [inputAmount.toString(), (inputAPY * 100).toString(), inputMonths.toString()],
-      'mumbai',
+      ['0x9003eCD3cD1Aa37e0eafC893f13978f2386F210F', 'Project 2', 'mainline_intel', 'answer'],
+      'sepolia',
       updateNotification,
     );
 
