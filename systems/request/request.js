@@ -171,11 +171,9 @@ const request = async (args, networkName, updateToast) => {
       const requestTx = await clientContract.executeRequest(
         request.source,
         request.secrets ?? [],
-        requestConfig.secretsLocation,
         request.args ?? [],
         subId,
-        gasLimit,
-        overrides
+        gasLimit
       )
 
       // If a response is not received within 5 minutes, the request has failed

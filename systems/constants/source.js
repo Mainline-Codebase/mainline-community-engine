@@ -1,4 +1,4 @@
-export default `// This example shows how to calculate a continuously compounding interested rate.
+export default `
 let twitterHandle
 if (args[2].charAt(0) == "@") {
   twitterHandle = args[2].substring(1)
@@ -10,7 +10,7 @@ const twitterKeywords = args[3].split(",")
 
 // call the Mainline API to retrieve a list of recent tweets of the KOL
 const mainlineResponse = await Functions.makeHttpRequest({
-  url: \`https://app.getmainline.com/api/tweets/handle/\${twitterHandle}\`,
+  url: "https://app.getmainline.com/api/tweets/handle/" + twitterHandle,
   headers: { "Api-Key": "c0620cb3-e210-4cae-8fdc-f2356f655174" },
 })
 
