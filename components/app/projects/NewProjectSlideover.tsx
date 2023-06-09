@@ -2,7 +2,7 @@
 
 import { Fragment, useState } from 'react';
 import {
-  useAccount, useContractWrite, erc20ABI,
+  useAccount, useContractWrite, erc20ABI, useContractRead
 } from 'wagmi';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
@@ -54,6 +54,18 @@ function NewContractSlideover({ open, setOpen }: Props) {
       keywords.split(',').map((keyword) => keyword.trim()),
     ],
     onSuccess: () => setOpen(false),
+  });
+  
+  const { data: allowance } = useContractRead({
+    address: USDC_CONTRACT_ADDRESS,
+    abi: erc20ABI,
+    chainId: 11155111,
+    functionName: 'allowance',
+    account: address,
+    // @ts-ignore
+    args: [address, MCE_CONTRACT_ADDRESS],
+    enabled: !!address,
+    watch: true
   });
 
   return (
@@ -196,18 +208,21 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                 />
                               </div>
                             </div>
-                            <div>
+                            {(Number(allowance) / 10 ** 18) < tokenAmount && (
+                              <div>
                               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                               <label
                                 htmlFor="token-payout-amount"
                                 className="block text-sm font-medium leading-6 text-gray-900"
                               >
+
                                 6) Approve USDC Spending
                               </label>
                               <div className="mt-2">
                                 <PrimaryButton text="Approve" onClick={() => writeERC20?.()} />
                               </div>
                             </div>
+                            )}
                           </div>
                         </div>
                       </div>
