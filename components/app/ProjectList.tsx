@@ -26,8 +26,6 @@ function ProjectList() {
     watch: true,
   });
 
-  console.log(projects);
-
   return (
     <ul className="divide-y divide-white/5">
       {projects?.length === 0 && (
