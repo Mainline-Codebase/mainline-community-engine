@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { classNames } from '../app/app/utils';
+import { classNames } from '../utils';
 import WalletSlot from './app/WalletSlot';
 
 interface Props {

@@ -4,7 +4,7 @@ import { useAccount, useContractRead } from 'wagmi';
 import Link from 'next/link';
 import { UserIcon } from '@heroicons/react/24/solid';
 import { UserGroupIcon } from '@heroicons/react/24/outline';
-import { classNames, shortenWalletAddress } from '../../app/app/utils';
+import { classNames, shortenWalletAddress } from '../../utils';
 import { communityEngineABI } from '../../contracts/generated';
 import { MCE_CONTRACT_ADDRESS } from '../../types';
 import { useRole } from '../../contexts/RoleContext';

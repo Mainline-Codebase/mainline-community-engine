@@ -4,7 +4,7 @@ import '../globals.css';
 import { Inter } from 'next/font/google';
 import { useState } from 'react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
-import { classNames, navigation, teams } from './utils';
+import { classNames, navigation, teams } from '../../utils';
 import DesktopSidebar from '../../components/DesktopSidebar';
 import MobileSidebar from '../../components/MobileSidebar';
 import WalletSlot from '../../components/app/WalletSlot';

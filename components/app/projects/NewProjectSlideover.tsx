@@ -8,7 +8,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { communityEngineABI } from '../../../contracts/generated';
 import PrimaryButton from '../../PrimaryButton';
-import { classNames } from '../../../app/app/utils';
+import { classNames } from '../../../utils';
 import { MCE_CONTRACT_ADDRESS, USDC_CONTRACT_ADDRESS } from '../../../types';
 
 interface Props {
