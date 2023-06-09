@@ -2,14 +2,14 @@
 import { defineConfig } from '@wagmi/cli';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { react } from '@wagmi/cli/plugins';
-import functionsConsumerAbi from "./systems/constants/abi/FunctionsConsumer.json"
+import { abi } from './contracts/abi';
 
 export default defineConfig({
   out: 'src/generated.ts',
   contracts: [
     {
       name: 'communityEngine',
-      functionsConsumerAbi,
+      abi,
     },
   ],
   plugins: [
