@@ -56,7 +56,7 @@ function ProjectList() {
         </li>
       )}
       {
-        projects?.map((project) => (
+        projects?.map((project: any) => (
           <ProjectCard project={project} key={Math.random()} />
         ))
       }

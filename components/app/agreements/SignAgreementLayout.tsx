@@ -26,7 +26,6 @@ function SignAgreementLayout({
     account: address,
     // @ts-ignore
     args: [projectOwner, projectName],
-    enabled: false,
   });
 
   const {
