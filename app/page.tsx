@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Dialog } from '@headlessui/react';
-import { useConnect } from 'wagmi';
+import { sepolia, useAccount, useConnect } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -16,9 +16,11 @@ function Page() {
   const [isLoadingKOL, setIsLoadingKOL] = useState(false);
   const { setRole } = useRole();
   const router = useRouter();
+  const { isConnected } = useAccount();
 
   const { connect } = useConnect({
     connector: new InjectedConnector(),
+    chainId: sepolia.id,
     onError: () => {
       setIsLoadingPO(false);
       setIsLoadingKOL(false);
@@ -26,6 +28,7 @@ function Page() {
     onSuccess: () => {
       setIsLoadingPO(false);
       setIsLoadingKOL(false);
+
       router.push('/app');
     },
   });
@@ -105,7 +108,10 @@ function Page() {
                 loading={isLoadingPO}
                 disabled={isLoadingKOL}
                 onClick={() => {
-                  setIsLoadingPO(true);
+                  if (!isConnected) {
+                    setIsLoadingPO(true);
+                  }
+
                   connect();
                   setRole('po');
                 }}
@@ -115,7 +121,10 @@ function Page() {
                 loading={isLoadingKOL}
                 disabled={isLoadingPO}
                 onClick={() => {
-                  setIsLoadingKOL(true);
+                  if (!isConnected) {
+                    setIsLoadingKOL(true);
+                  }
+
                   connect();
                   setRole('kol');
                 }}

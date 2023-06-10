@@ -2,6 +2,7 @@
 
 import { Inter } from 'next/font/google';
 import { publicProvider } from 'wagmi/providers/public';
+import { infuraProvider } from 'wagmi/providers/infura';
 import {
   configureChains, sepolia, createConfig, WagmiConfig,
 } from 'wagmi';
@@ -13,7 +14,10 @@ const inter = Inter({ subsets: ['latin'] });
 
 const { publicClient, webSocketPublicClient } = configureChains(
   [sepolia],
-  [publicProvider()],
+  [
+    infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_API_KEY as string }),
+    publicProvider(),
+  ],
 );
 
 const config = createConfig({
@@ -28,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full bg-primary-bg">
       <head>
         <link rel="icon" href="/favicon.png" />
         <title>Mainline Community Engine</title>

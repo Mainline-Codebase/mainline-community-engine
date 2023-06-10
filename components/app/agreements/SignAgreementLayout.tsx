@@ -1,7 +1,8 @@
 'use client';
 
 import {
-  useAccount, useContractWrite, usePrepareContractWrite, useWaitForTransaction,
+  sepolia,
+  useAccount, useContractWrite, useNetwork, usePrepareContractWrite, useWaitForTransaction,
 } from 'wagmi';
 import PrimaryButton from '../../PrimaryButton';
 import { MCE_CONTRACT_ADDRESS } from '../../../constants';
@@ -17,6 +18,7 @@ function SignAgreementLayout({
   projectName, projectOwner,
 }: Props) {
   const { isConnected, address } = useAccount();
+  const { chain } = useNetwork();
 
   const { config } = usePrepareContractWrite({
     address: MCE_CONTRACT_ADDRESS,
@@ -42,6 +44,7 @@ function SignAgreementLayout({
     <PrimaryButton
       text="Sign Agreement"
       onClick={() => write?.()}
+      disabled={chain?.id !== sepolia.id}
     />
   );
 }

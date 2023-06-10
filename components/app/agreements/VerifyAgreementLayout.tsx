@@ -4,7 +4,7 @@
 
 import { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useAccount } from 'wagmi';
+import { sepolia, useAccount, useNetwork } from 'wagmi';
 import SecondaryButton from '../../SecondaryButton';
 import executeRequest from '../../../systems/request/request';
 
@@ -13,7 +13,8 @@ interface Props {
 }
 
 function VerifyAgreementLayout({ project }: Props) {
-  const { isConnected, address } = useAccount();
+  const { isConnected } = useAccount();
+  const { chain } = useNetwork();
   const [isRequesting, setIsRequesting] = useState(false);
   const notification = useRef(null);
 
@@ -70,6 +71,7 @@ function VerifyAgreementLayout({ project }: Props) {
     <SecondaryButton
       text="Verify"
       onClick={performRequest}
+      disabled={chain?.id !== sepolia.id}
     />
   );
 }

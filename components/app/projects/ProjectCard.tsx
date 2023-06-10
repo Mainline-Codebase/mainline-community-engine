@@ -20,7 +20,7 @@ function ProjectCard({ project }: Props) {
           <div className={classNames(
             (!project.isComplete && project.kolHasAgreed) && 'text-indigo-400 bg-indigo-400/10',
             (!project.isComplete && !project.kolHasAgreed) && 'text-yellow-400 bg-yellow-400/10',
-            (project.isComplete) && 'text-blue-400 bg-blue-400/10',
+            (project.isComplete) && 'text-green-400 bg-green-400/10',
             'flex-none rounded-full p-1',
           )}
           >
@@ -41,7 +41,7 @@ function ProjectCard({ project }: Props) {
                   // @ts-ignore
                   (project.kolHasAgreed && !project.isComplete) && 'text-indigo-400 bg-indigo-400/10 ring-indigo-400/30',
                   (!project.kolHasAgreed && !project.isComplete) && 'text-yellow-400 bg-yellow-400/10 ring-yellow-400/20',
-                  project.isComplete && 'text-blue-400 bg-blue-400/10 ring-blue-400/30',
+                  project.isComplete && 'text-green-400 bg-green-400/10 ring-green-400/30',
                   'rounded-full flex-none py-1 px-2 ml-2 text-xs font-medium ring-1 ring-inset',
                 )}
               >
@@ -79,9 +79,9 @@ function ProjectCard({ project }: Props) {
             </svg>
           </>
           )}
-          <p className="whitespace-nowrap">
+          <p className="whitespace-nowrap space-x-1">
             {project.tweetKeywords.map((keyword: string) => (
-              <span key={Math.random()} className="px-2 py-0.5 rounded-full text-green-400 bg-green-400/10">
+              <span key={Math.random()} className="px-2 py-0.5 rounded-full text-gray-400 bg-gray-400/10">
                 {keyword}
               </span>
             ))}

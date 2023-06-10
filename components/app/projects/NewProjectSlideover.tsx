@@ -2,7 +2,7 @@
 
 import { Fragment, useState } from 'react';
 import {
-  useAccount, useContractWrite, erc20ABI, useContractRead, useWaitForTransaction,
+  useAccount, useContractWrite, erc20ABI, useContractRead, useWaitForTransaction, sepolia, useNetwork,
 } from 'wagmi';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
@@ -17,6 +17,7 @@ interface Props {
 
 function NewContractSlideover({ open, setOpen }: Props) {
   const { address } = useAccount();
+  const { chain } = useNetwork();
   const [isLoadingSubmitProject, setIsLoadingSubmitProject] = useState<boolean>(false);
 
   const [projectName, setProjectName] = useState<string>('');
@@ -239,7 +240,12 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                   6) Approve USDC Spending
                                 </label>
                                 <div className="mt-2">
-                                  <PrimaryButton text="Approve" onClick={() => writeERC20?.()} loading={isLoadingERC20} />
+                                  <PrimaryButton
+                                    text="Approve"
+                                    onClick={() => writeERC20?.()}
+                                    loading={isLoadingERC20}
+                                    disabled={chain?.id !== sepolia.id}
+                                  />
                                 </div>
                               </div>
                             )}
@@ -261,7 +267,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                           setIsLoadingSubmitProject(true);
                           writeAddProject?.();
                         }}
-                        disabled={!projectName || !kolAddress || !kolTwitterHandle || !tokenAmount || !keywords || isLoadingERC20}
+                        disabled={!projectName || !kolAddress || !kolTwitterHandle || !tokenAmount || !keywords || isLoadingERC20 || (chain?.id !== sepolia.id)}
                         loading={isLoadingSubmitProject}
                       />
                     </div>

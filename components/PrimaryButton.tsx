@@ -5,10 +5,11 @@ interface Props {
   disabled?: boolean,
   loading?: boolean,
   onClick?: () => void,
+  pulse?: boolean,
 }
 
 function PrimaryButton({
-  text, onClick, disabled, loading,
+  text, onClick, disabled, loading, pulse = false,
 }: Props) {
   return (
     <>
@@ -34,7 +35,7 @@ function PrimaryButton({
         type="button"
         disabled={!!disabled || !!loading}
         onClick={(!!loading || !!disabled) ? undefined : onClick}
-        className={classNames('rounded-md flex bg-primary-button px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-button/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2', (!!disabled && !loading) && 'opacity-50 cursor-not-allowed', !!loading && 'cursor-not-allowed')}
+        className={classNames('rounded-md flex bg-primary-button px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-button/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2', (!!disabled && !loading) && 'opacity-50 cursor-not-allowed', !!loading && 'cursor-not-allowed', !!pulse && 'animate-pulse')}
       >
         {!!loading && (
           <svg className="animate-spin h-5 w-5 mr-2 text-white" viewBox="0 0 24 24">
