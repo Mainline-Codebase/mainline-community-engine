@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function RoleProvider({ children }: Props) {
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState<string>('');
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values

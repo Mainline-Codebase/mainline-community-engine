@@ -1,26 +1,13 @@
 'use client';
 
-import { useAccount, useContractRead } from 'wagmi';
 import { UserGroupIcon } from '@heroicons/react/24/outline';
-import { communityEngineABI } from '../../contracts/generated';
-import { MCE_CONTRACT_ADDRESS } from '../../constants';
 import { useRole } from '../../contexts/RoleContext';
 import ProjectCard from './ProjectCard';
+import { useProjects } from '../../contexts/ProjectContext';
 
 function ProjectList() {
-  const { address } = useAccount();
   const { role } = useRole();
-
-  const { data: projects } = useContractRead({
-    address: MCE_CONTRACT_ADDRESS,
-    abi: communityEngineABI,
-    functionName: role === 'po' ? 'getProjectOwnerProjects' : 'getKOLProjects',
-    account: address,
-    // @ts-ignore
-    args: [address],
-    enabled: !!address,
-    watch: true,
-  });
+  const { projects } = useProjects();
 
   return (
     <ul className="divide-y divide-white/5">

@@ -9,6 +9,7 @@ import {
 import { classNames } from '../utils';
 import './globals.css';
 import RoleProvider from '../contexts/RoleContext';
+import ProjectProvider from '../contexts/ProjectContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -39,7 +40,11 @@ export default function RootLayout({
       </head>
       <body className={classNames(inter.className, 'h-full')}>
         <WagmiConfig config={config}>
-          <RoleProvider>{children}</RoleProvider>
+          <RoleProvider>
+            <ProjectProvider>
+              {children}
+            </ProjectProvider>
+          </RoleProvider>
         </WagmiConfig>
       </body>
     </html>

@@ -9,6 +9,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { communityEngineABI } from '../../contracts/generated';
 import PrimaryButton from '../buttons/PrimaryButton';
 import { MCE_CONTRACT_ADDRESS, USDC_CONTRACT_ADDRESS } from '../../constants';
+import { useProjects } from '../../contexts/ProjectContext';
 
 interface Props {
   open: boolean,
@@ -18,13 +19,14 @@ interface Props {
 function NewContractSlideover({ open, setOpen }: Props) {
   const { address } = useAccount();
   const { chain } = useNetwork();
-  const [isLoadingSubmitProject, setIsLoadingSubmitProject] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [projectName, setProjectName] = useState<string>('');
   const [kolAddress, setKolAddress] = useState<string>('');
   const [kolTwitterHandle, setKolTwitterHandle] = useState<string>('');
   const [keywords, setKeywords] = useState<string>('');
   const [tokenAmount, setTokenAmount] = useState<number>(1);
+  const { refetch } = useProjects();
 
   const {
     write: writeERC20, isLoading: isLoadingERC20,
@@ -54,14 +56,18 @@ function NewContractSlideover({ open, setOpen }: Props) {
       kolTwitterHandle,
       keywords.split(',').map((keyword) => keyword.trim()),
     ],
-    onError: () => setIsLoadingSubmitProject(false),
+    onError: () => {
+      setIsLoading(false);
+      refetch();
+    },
   });
 
   useWaitForTransaction({
     hash: data?.hash,
     enabled: !!data?.hash,
     onSuccess: () => {
-      setIsLoadingSubmitProject(false);
+      setIsLoading(false);
+      refetch();
       setOpen(false);
     },
   });
@@ -107,7 +113,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
               >
                 <Dialog.Panel className="pointer-events-auto w-screen max-w-xl">
                   <form className="flex h-full flex-col divide-y divide-gray-200 bg-white">
-                    <div className="h-0 flex-1 overflow-y-auto bg-primary-bg/10">
+                    <div className="h-0 flex-1 overflow-y-auto bg-primary-bg/100">
                       <div className="bg-primary-bg px-4 py-6 sm:px-6">
                         <div className="flex items-center justify-between">
                           <Dialog.Title className="text-base font-semibold leading-6 text-white">
@@ -137,7 +143,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                               <label
                                 htmlFor="project-name"
-                                className="block text-sm font-medium leading-6 text-gray-900"
+                                className="block text-sm font-medium leading-6 text-white"
                               >
                                 1) Project Name
                               </label>
@@ -146,7 +152,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                   type="text"
                                   name="project-name"
                                   id="project-name"
-                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                  className="block w-full rounded-md border-0 py-1.5 text-white bg-primary-bg shadow-sm ring-1 ring-inset ring-indigo-600 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                   placeholder="Project ABC"
                                   onChange={(e) => setProjectName(e.target.value)}
                                 />
@@ -156,7 +162,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                               <label
                                 htmlFor="kol-address"
-                                className="block text-sm font-medium leading-6 text-gray-900"
+                                className="block text-sm font-medium leading-6 text-white"
                               >
                                 2) KOL Wallet Address
                               </label>
@@ -165,7 +171,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                   type="text"
                                   name="kol-address"
                                   id="kol-address"
-                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                  className="block w-full rounded-md border-0 py-1.5 text-white bg-primary-bg shadow-sm ring-1 ring-inset ring-indigo-600 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                   placeholder="0x7cd4d5CF4B677292481fC05c6906c95d7996C573"
                                   onChange={(e) => setKolAddress(e.target.value)}
                                 />
@@ -175,7 +181,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                               <label
                                 htmlFor="kol-twitter-handle"
-                                className="block text-sm font-medium leading-6 text-gray-900"
+                                className="block text-sm font-medium leading-6 text-white"
                               >
                                 3) KOL Twitter Handle
                               </label>
@@ -184,7 +190,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                   type="text"
                                   name="kol-twitter-handle"
                                   id="kol-twitter-handle"
-                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                  className="block w-full rounded-md border-0 py-1.5 text-white bg-primary-bg shadow-sm ring-1 ring-inset ring-indigo-600 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                   placeholder="@naval"
                                   onChange={(e) => setKolTwitterHandle(e.target.value)}
                                 />
@@ -194,7 +200,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                               <label
                                 htmlFor="token-payout-amount"
-                                className="block text-sm font-medium leading-6 text-gray-900"
+                                className="block text-sm font-medium leading-6 text-white"
                               >
                                 4) Token Payout Amount (USDC)
                               </label>
@@ -205,7 +211,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                   max="100000"
                                   name="token-payout-amount"
                                   id="token-payout-amount"
-                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                  className="block w-full rounded-md border-0 py-1.5 text-white bg-primary-bg shadow-sm ring-1 ring-inset ring-indigo-600 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                   placeholder="1000"
                                   onChange={(e) => setTokenAmount(Number(e.target.value))}
                                 />
@@ -215,7 +221,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                               <label
                                 htmlFor="keywords"
-                                className="block text-sm font-medium leading-6 text-gray-900"
+                                className="block text-sm font-medium leading-6 text-white"
                               >
                                 5) Keywords (comma separated)
                               </label>
@@ -223,7 +229,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                 <textarea
                                   name="keywords"
                                   id="keywords"
-                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                  className="block w-full rounded-md border-0 py-1.5 text-white bg-primary-bg shadow-sm ring-1 ring-inset ring-indigo-600 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                   placeholder="web3, blockchain, Chainlink"
                                   onChange={(e) => setKeywords(e.target.value)}
                                 />
@@ -234,7 +240,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                 {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                                 <label
                                   htmlFor="token-payout-amount"
-                                  className="block text-sm font-medium leading-6 text-gray-900"
+                                  className="block text-sm font-medium leading-6 text-white"
                                 >
 
                                   6) Approve USDC Spending
@@ -262,13 +268,13 @@ function NewContractSlideover({ open, setOpen }: Props) {
                         Cancel
                       </button>
                       <PrimaryButton
-                        text="Submit"
+                        text={isLoading ? 'Saving...' : 'Save'}
                         onClick={() => {
-                          setIsLoadingSubmitProject(true);
+                          setIsLoading(true);
                           writeAddProject?.();
                         }}
                         disabled={!projectName || !kolAddress || !kolTwitterHandle || !tokenAmount || !keywords || isLoadingERC20 || (chain?.id !== sepolia.id)}
-                        loading={isLoadingSubmitProject}
+                        loading={isLoading}
                       />
                     </div>
                   </form>

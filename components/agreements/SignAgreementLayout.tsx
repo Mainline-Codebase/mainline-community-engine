@@ -2,11 +2,13 @@
 
 import {
   sepolia,
-  useAccount, useContractWrite, useNetwork, usePrepareContractWrite, useWaitForTransaction,
+  useAccount, useContractWrite, useNetwork, useWaitForTransaction,
 } from 'wagmi';
-import PrimaryButton from '../buttons/PrimaryButton';
+import { useState } from 'react';
 import { MCE_CONTRACT_ADDRESS } from '../../constants';
 import { communityEngineABI } from '../../contracts/generated';
+import { useProjects } from '../../contexts/ProjectContext';
+import YellowButton from '../buttons/YellowButton';
 
 interface Props {
   projectName: string
@@ -14,13 +16,17 @@ interface Props {
 }
 
 function SignAgreementLayout({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   projectName, projectOwner,
 }: Props) {
+  const [isLoading, setIsLoading] = useState(false);
   const { isConnected, address } = useAccount();
   const { chain } = useNetwork();
+  const { refetch } = useProjects();
 
-  const { config } = usePrepareContractWrite({
+  const {
+    data,
+    write,
+  } = useContractWrite({
     address: MCE_CONTRACT_ADDRESS,
     abi: communityEngineABI,
     chainId: 11155111,
@@ -28,23 +34,30 @@ function SignAgreementLayout({
     account: address,
     // @ts-ignore
     args: [projectOwner, projectName],
+    onError: () => {
+      setIsLoading(false);
+      refetch();
+    },
   });
-
-  const {
-    data,
-    write,
-  } = useContractWrite(config);
 
   useWaitForTransaction({
     hash: data?.hash,
     enabled: !!data?.hash,
+    onSuccess: () => {
+      setIsLoading(false);
+      refetch();
+    },
   });
 
   return !isConnected ? null : (
-    <PrimaryButton
-      text="Sign Agreement"
-      onClick={() => write?.()}
+    <YellowButton
+      text={isLoading ? 'Signing...' : 'Sign Agreement'}
+      onClick={() => {
+        setIsLoading(true);
+        write?.();
+      }}
       disabled={chain?.id !== sepolia.id}
+      loading={isLoading}
     />
   );
 }

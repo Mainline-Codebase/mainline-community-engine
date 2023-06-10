@@ -1,12 +1,10 @@
 'use client';
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-import { useRef, useState } from 'react';
-import { toast } from 'react-toastify';
+import { useState } from 'react';
 import { sepolia, useAccount, useNetwork } from 'wagmi';
 import SecondaryButton from '../buttons/SecondaryButton';
 import executeRequest from '../../systems/request/request';
+import { useProjects } from '../../contexts/ProjectContext';
 
 interface Props {
   project: any
@@ -15,33 +13,34 @@ interface Props {
 function VerifyAgreementLayout({ project }: Props) {
   const { isConnected } = useAccount();
   const { chain } = useNetwork();
-  const [isRequesting, setIsRequesting] = useState(false);
-  const notification = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const { refetch } = useProjects();
 
-  const updateNotification = (message: any) => {
-    if (notification.current) {
-      // toast.update(notification.current, {
-      //   render: message,
-      //   type: 'info',
-      //   isLoading: true,
-      //   autoClose: false,
-      // });
-    }
-  };
+  // const updateNotification = (message: any) => {
+  //   if (notification.current) {
+  //     toast.update(notification.current, {
+  //       render: message,
+  //       type: 'info',
+  //       isLoading: true,
+  //       autoClose: false,
+  //     });
+  //   }
+  // };
 
   const performRequest = async () => {
     // @ts-ignore
-    notification.current = toast.loading('Initiating request...');
-    setIsRequesting(true);
+    // notification.current = toast.loading('Initiating request...');
+    setIsLoading(true);
 
     const res = await executeRequest(
       [project.owner, project.name, project.kolTwitterHandle, project.tweetKeywords.join()],
       'sepolia',
-      updateNotification,
+      null, // updateNotification,
     );
 
     if (res.error) {
       console.log('ERROR: ', res.result);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const isKnownError = res.result.toString().includes('transaction failed');
 
       // @ts-ignore
@@ -62,16 +61,16 @@ function VerifyAgreementLayout({ project }: Props) {
 
       console.log(res);
     }
-
-    notification.current = null;
-    setIsRequesting(false);
+    setIsLoading(false);
+    refetch();
   };
 
   return !isConnected ? null : (
     <SecondaryButton
-      text="Verify"
+      text={isLoading ? 'Verifying...' : 'Verify'}
       onClick={performRequest}
       disabled={chain?.id !== sepolia.id}
+      loading={isLoading}
     />
   );
 }
