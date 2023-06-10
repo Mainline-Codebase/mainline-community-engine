@@ -5,7 +5,7 @@ import { UserGroupIcon } from '@heroicons/react/24/outline';
 import { communityEngineABI } from '../../contracts/generated';
 import { MCE_CONTRACT_ADDRESS } from '../../constants';
 import { useRole } from '../../contexts/RoleContext';
-import ProjectCard from './projects/ProjectCard';
+import ProjectCard from './ProjectCard';
 
 function ProjectList() {
   const { address } = useAccount();

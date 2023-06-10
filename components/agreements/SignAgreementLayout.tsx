@@ -4,9 +4,9 @@ import {
   sepolia,
   useAccount, useContractWrite, useNetwork, usePrepareContractWrite, useWaitForTransaction,
 } from 'wagmi';
-import PrimaryButton from '../../PrimaryButton';
-import { MCE_CONTRACT_ADDRESS } from '../../../constants';
-import { communityEngineABI } from '../../../contracts/generated';
+import PrimaryButton from '../buttons/PrimaryButton';
+import { MCE_CONTRACT_ADDRESS } from '../../constants';
+import { communityEngineABI } from '../../contracts/generated';
 
 interface Props {
   projectName: string

@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { sepolia, useAccount, useNetwork } from 'wagmi';
-import PrimaryButton from '../../PrimaryButton';
+import PrimaryButton from '../buttons/PrimaryButton';
 import NewContractSlideover from './NewProjectSlideover';
-import { useRole } from '../../../contexts/RoleContext';
+import { useRole } from '../../contexts/RoleContext';
 
 function NewContractLayout() {
   const [slideoverOpen, setSlideoverOpen] = useState<boolean>(false);

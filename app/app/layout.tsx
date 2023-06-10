@@ -4,9 +4,9 @@ import '../globals.css';
 import { useState } from 'react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import { navigation, teams } from '../../utils';
-import DesktopSidebar from '../../components/DesktopSidebar';
-import MobileSidebar from '../../components/MobileSidebar';
-import WalletSlot from '../../components/app/WalletSlot';
+import DesktopSidebar from '../../components/sidebars/DesktopSidebar';
+import MobileSidebar from '../../components/sidebars/MobileSidebar';
+import WalletSlot from '../../components/agreements/WalletSlot';
 import { useRole } from '../../contexts/RoleContext';
 
 interface Props {

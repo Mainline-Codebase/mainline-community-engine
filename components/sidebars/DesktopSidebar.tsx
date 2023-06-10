@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { classNames } from '../utils';
-import WalletSlot from './app/WalletSlot';
+import { classNames } from '../../utils';
+import WalletSlot from '../agreements/WalletSlot';
 
 interface Props {
   navigation: any[],

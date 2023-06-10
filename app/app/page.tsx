@@ -3,9 +3,9 @@
 import { useAccount } from 'wagmi';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import ActivityFeed from '../../components/app/ActivityFeed';
-import ProjectList from '../../components/app/ProjectList';
-import NewContractLayout from '../../components/app/projects/NewProjectLayout';
+import ActivityFeed from '../../components/ActivityFeed';
+import ProjectList from '../../components/projects/ProjectList';
+import NewContractLayout from '../../components/projects/NewProjectLayout';
 
 function RootPage() {
   const { isConnected } = useAccount();

@@ -1,9 +1,9 @@
 import { UserIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import { classNames, shortenWalletAddress } from '../../../utils';
+import { classNames, shortenWalletAddress } from '../../utils';
 import SignAgreementLayout from '../agreements/SignAgreementLayout';
 import VerifyAgreementLayout from '../agreements/VerifyAgreementLayout';
-import { useRole } from '../../../contexts/RoleContext';
+import { useRole } from '../../contexts/RoleContext';
 
 interface Props {
   project: any

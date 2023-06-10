@@ -6,9 +6,9 @@ import {
 } from 'wagmi';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { communityEngineABI } from '../../../contracts/generated';
-import PrimaryButton from '../../PrimaryButton';
-import { MCE_CONTRACT_ADDRESS, USDC_CONTRACT_ADDRESS } from '../../../constants';
+import { communityEngineABI } from '../../contracts/generated';
+import PrimaryButton from '../buttons/PrimaryButton';
+import { MCE_CONTRACT_ADDRESS, USDC_CONTRACT_ADDRESS } from '../../constants';
 
 interface Props {
   open: boolean,

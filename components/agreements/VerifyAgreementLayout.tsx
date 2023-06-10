@@ -5,8 +5,8 @@
 import { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { sepolia, useAccount, useNetwork } from 'wagmi';
-import SecondaryButton from '../../SecondaryButton';
-import executeRequest from '../../../systems/request/request';
+import SecondaryButton from '../buttons/SecondaryButton';
+import executeRequest from '../../systems/request/request';
 
 interface Props {
   project: any
