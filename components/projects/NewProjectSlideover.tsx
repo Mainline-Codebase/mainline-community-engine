@@ -247,7 +247,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
                                 </label>
                                 <div className="mt-2">
                                   <PrimaryButton
-                                    text="Approve"
+                                    text={isLoadingERC20 ? 'Approving...' : 'Approve'}
                                     onClick={() => writeERC20?.()}
                                     loading={isLoadingERC20}
                                     disabled={chain?.id !== sepolia.id}
