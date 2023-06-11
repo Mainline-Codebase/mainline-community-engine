@@ -80,7 +80,7 @@ const request = async (args, networkName, updateToast) => {
    return await new Promise(async (resolve, reject) => {
       try {
          let requestId
-         let returned = { result: null, cost: null, error: false }
+         let returned = { result: null, cost: null, txHash: null, error: false }
 
          // Initiate the listeners before making the request
          // Listen for fulfillment errors
@@ -105,7 +105,7 @@ const request = async (args, networkName, updateToast) => {
          // Listen for successful fulfillment
          let billingEndEventReceived = false
          let ocrResponseEventReceived = false
-         clientContract.once("OCRResponse", async (eventRequestId, result, err) => {
+         clientContract.once("OCRResponse", async (eventRequestId, result, err, event) => {
             // Ensure the fulfilled requestId matches the initiated requestId to prevent logging a response for an unrelated requestId
             if (eventRequestId !== requestId) {
                return
@@ -122,6 +122,7 @@ const request = async (args, networkName, updateToast) => {
                console.log(`Error message returned to client contract: "${Buffer.from(err.slice(2), "hex")}"\n`)
             }
 
+            returned.txHash = event.transactionHash;
             ocrResponseEventReceived = true
             if (billingEndEventReceived) {
                killListeners()

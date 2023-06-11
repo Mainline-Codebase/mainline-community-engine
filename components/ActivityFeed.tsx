@@ -33,7 +33,7 @@ function ActivityFeed() {
               {item?.txHash ? (
                 <span className="text-white flex-none underline">
                   <Link href={`${SEPOLIA_ETHERSCAN_URL}/tx/${item.txHash}`} target="_blank">
-                    {shortenWalletAddress(item.txHash)}
+                    View Tx
                   </Link>
                 </span>
               ) : (
