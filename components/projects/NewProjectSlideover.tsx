@@ -10,6 +10,7 @@ import { communityEngineABI } from '../../contracts/generated';
 import PrimaryButton from '../buttons/PrimaryButton';
 import { MCE_CONTRACT_ADDRESS, USDC_CONTRACT_ADDRESS } from '../../constants';
 import { useProjects } from '../../contexts/ProjectContext';
+import { useActivity } from '../../contexts/ActivityContext';
 
 interface Props {
   open: boolean,
@@ -27,6 +28,7 @@ function NewContractSlideover({ open, setOpen }: Props) {
   const [keywords, setKeywords] = useState<string>('');
   const [tokenAmount, setTokenAmount] = useState<number>(1);
   const { refetch } = useProjects();
+  const { activity, setActivity } = useActivity();
 
   const {
     write: writeERC20, isLoading: isLoadingERC20,
@@ -68,6 +70,18 @@ function NewContractSlideover({ open, setOpen }: Props) {
     onSuccess: () => {
       setIsLoading(false);
       refetch();
+
+      setActivity([
+        {
+          role: 'po',
+          event: 'Project Created',
+          txHash: data?.hash || '',
+          project: projectName,
+          timestamp: new Date().getTime(),
+          walletAddress: address,
+        },
+        ...activity]);
+
       setOpen(false);
     },
   });

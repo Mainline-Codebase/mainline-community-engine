@@ -4,8 +4,8 @@ import {
   sepolia, useAccount, useDisconnect, useNetwork, useSwitchNetwork,
 } from 'wagmi';
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
-import { shortenWalletAddress } from '../../utils';
-import PrimaryButton from '../buttons/PrimaryButton';
+import { shortenWalletAddress } from '../utils';
+import PrimaryButton from './buttons/PrimaryButton';
 
 function WalletSlot() {
   const { address, isConnected } = useAccount();

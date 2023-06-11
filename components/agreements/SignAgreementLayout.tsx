@@ -9,6 +9,7 @@ import { MCE_CONTRACT_ADDRESS } from '../../constants';
 import { communityEngineABI } from '../../contracts/generated';
 import { useProjects } from '../../contexts/ProjectContext';
 import YellowButton from '../buttons/YellowButton';
+import { useActivity } from '../../contexts/ActivityContext';
 
 interface Props {
   projectName: string
@@ -22,6 +23,7 @@ function SignAgreementLayout({
   const { isConnected, address } = useAccount();
   const { chain } = useNetwork();
   const { refetch } = useProjects();
+  const { activity, setActivity } = useActivity();
 
   const {
     data,
@@ -46,6 +48,17 @@ function SignAgreementLayout({
     onSuccess: () => {
       setIsLoading(false);
       refetch();
+
+      setActivity([
+        {
+          role: 'kol',
+          event: 'Agreement Signed',
+          txHash: data?.hash || '',
+          project: projectName,
+          timestamp: new Date().getTime(),
+          walletAddress: address,
+        },
+        ...activity]);
     },
   });
 

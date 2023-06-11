@@ -10,6 +10,7 @@ import { classNames } from '../utils';
 import './globals.css';
 import RoleProvider from '../contexts/RoleContext';
 import ProjectProvider from '../contexts/ProjectContext';
+import ActivityProvider from '../contexts/ActivityContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -41,9 +42,11 @@ export default function RootLayout({
       <body className={classNames(inter.className, 'h-full')}>
         <WagmiConfig config={config}>
           <RoleProvider>
-            <ProjectProvider>
-              {children}
-            </ProjectProvider>
+            <ActivityProvider>
+              <ProjectProvider>
+                {children}
+              </ProjectProvider>
+            </ActivityProvider>
           </RoleProvider>
         </WagmiConfig>
       </body>

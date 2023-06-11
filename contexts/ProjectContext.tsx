@@ -30,8 +30,6 @@ export default function ProjectProvider({ children }: Props) {
     watch: false,
   });
 
-  console.log(projects);
-
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <ProjectContext.Provider value={{ projects, refetch }}>
