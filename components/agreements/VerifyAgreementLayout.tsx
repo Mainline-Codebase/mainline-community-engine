@@ -55,7 +55,7 @@ function VerifyAgreementLayout({ project }: Props) {
         {
           role: 'po',
           event: 'Project Completed',
-          metadata: Number(res.result) === 0 ? 'Payment Returned' : 'Payment Sent',
+          keywordsFound: Number(res.result) !== 0,
           project: project.name,
           txHash: res.txHash,
           timestamp: new Date().getTime(),

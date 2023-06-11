@@ -5,9 +5,9 @@ export const SEPOLIA_ETHERSCAN_URL = 'https://sepolia.etherscan.io';
 export interface ActivityEvent {
   role: string;
   event: string;
-  txHash?: string;
-  metadata?: never;
   project: string;
+  txHash?: string;
   timestamp: number;
   walletAddress: string;
+  keywordsFound?: boolean;
 }

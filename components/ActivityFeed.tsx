@@ -20,7 +20,7 @@ function ActivityFeed() {
           </li>
         )}
         {activity?.map((item) => (
-          <li key={item.timestamp} className="px-4 py-4 sm:px-6 lg:px-8 space-y-1 animate-fadeIn">
+          <li key={item.timestamp} className="px-4 py-4 sm:px-6 lg:px-8 space-y-2 animate-fadeIn">
             <div className="flex justify-between items-center">
               <div className="flex-auto truncate text-sm leading-6 text-indigo-500 italic">{item.event}</div>
               <time dateTime={dayjs(item.timestamp).format('h:mm:ss A | M/DD/YY')} className="flex-none text-xs text-gray-400">
@@ -29,16 +29,33 @@ function ActivityFeed() {
             </div>
             <div className="truncate text-sm font-normal flex items-center gap-x-3">
               <span className="text-white flex-auto font-semibold">{item.project}</span>
-              {item?.txHash ? (
+              {item?.txHash && (
                 <span className="text-white flex-none underline">
                   <Link href={`${SEPOLIA_ETHERSCAN_URL}/tx/${item.txHash}`} target="_blank">
                     View Tx
                   </Link>
                 </span>
-              ) : (
-                <span className="text-white flex-none">{item.metadata}</span>
               )}
             </div>
+            {typeof item?.keywordsFound === 'boolean' && (
+            <div className="truncate text-sm font-normal flex items-center gap-x-3">
+              {item?.keywordsFound ? (
+                <>
+                  <span className="text-white flex-auto">✅ Keyword(s) Found</span>
+                  <span className="text-white flex-none">
+                    USDC Sent
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="text-white flex-auto">❌ Keyword(s) Not Found</span>
+                  <span className="text-white flex-none">
+                    USDC Returned
+                  </span>
+                </>
+              )}
+            </div>
+            )}
           </li>
         ))}
       </ul>
