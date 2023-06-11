@@ -25,7 +25,6 @@ function VerifyAgreementLayout({ project }: Props) {
       {
         role: 'po',
         event: 'Chainlink Initiated',
-        metadata: '',
         project: project.name,
         txHash: '',
         timestamp: new Date().getTime(),
