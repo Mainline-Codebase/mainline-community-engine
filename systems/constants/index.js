@@ -24,7 +24,7 @@ const ReturnType = {
 // Add providers for each network
 const PROVIDERS = {
   sepolia: new ethers.providers.JsonRpcProvider(
-    `https://eth-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
+    process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL,
   ),
 };
 
