@@ -25,8 +25,8 @@ function VerifyAgreementLayout({ project }: Props) {
       {
         role: 'po',
         event: 'Chainlink Initiated',
-        metadata: '',
         project: project.name,
+        txHash: '',
         timestamp: new Date().getTime(),
         walletAddress: project.owner,
       },
@@ -57,6 +57,7 @@ function VerifyAgreementLayout({ project }: Props) {
           event: 'Project Completed',
           metadata: Number(res.result) === 0 ? 'Payment Returned' : 'Payment Sent',
           project: project.name,
+          txHash: res.txHash,
           timestamp: new Date().getTime(),
           walletAddress: project.owner,
         },

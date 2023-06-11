@@ -6,7 +6,7 @@ export interface ActivityEvent {
   role: string;
   event: string;
   txHash?: string;
-  metadata?: string;
+  metadata?: never;
   project: string;
   timestamp: number;
   walletAddress: string;

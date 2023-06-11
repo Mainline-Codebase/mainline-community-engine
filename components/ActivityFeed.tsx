@@ -2,7 +2,6 @@ import { SignalIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import { useActivity } from '../contexts/ActivityContext';
-import { shortenWalletAddress } from '../utils';
 import { SEPOLIA_ETHERSCAN_URL } from '../constants';
 
 function ActivityFeed() {
@@ -33,7 +32,7 @@ function ActivityFeed() {
               {item?.txHash ? (
                 <span className="text-white flex-none underline">
                   <Link href={`${SEPOLIA_ETHERSCAN_URL}/tx/${item.txHash}`} target="_blank">
-                    {shortenWalletAddress(item.txHash)}
+                    View Tx
                   </Link>
                 </span>
               ) : (
