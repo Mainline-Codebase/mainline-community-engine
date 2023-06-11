@@ -23,7 +23,7 @@ const ReturnType = {
 
 // Add providers for each network
 const PROVIDERS = {
-  sepolia: new ethers.providers.JsonRpcProvider(
+  sepolia: new ethers.JsonRpcProvider(
     process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL,
   ),
 };

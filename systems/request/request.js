@@ -171,7 +171,7 @@ const request = async (args, networkName, updateToast) => {
 
          const requestTx = await clientContract.executeRequest(
             request.source,
-            request.secrets ?? [],
+            request.secrets ?? ethers.getBytes("0x"),
             request.args ?? [],
             subId,
             gasLimit
