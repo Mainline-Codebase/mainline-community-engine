@@ -43,7 +43,7 @@ export const teams = [
 ];
 
 export function shortenWalletAddress(walletAddress: string): string {
-  const shortenedAddress = `${walletAddress.slice(0, 6)}:${walletAddress.slice(-3)}`;
+  const shortenedAddress = walletAddress ? `${walletAddress.slice(0, 6)}:${walletAddress.slice(-3)}` : '';
 
   return shortenedAddress;
 }

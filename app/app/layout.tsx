@@ -6,7 +6,7 @@ import { Bars3Icon } from '@heroicons/react/24/outline';
 import { navigation, teams } from '../../utils';
 import DesktopSidebar from '../../components/sidebars/DesktopSidebar';
 import MobileSidebar from '../../components/sidebars/MobileSidebar';
-import WalletSlot from '../../components/agreements/WalletSlot';
+import WalletSlot from '../../components/WalletSlot';
 import { useRole } from '../../contexts/RoleContext';
 
 interface Props {
