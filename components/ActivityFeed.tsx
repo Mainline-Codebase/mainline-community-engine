@@ -2,7 +2,6 @@ import { SignalIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import { useActivity } from '../contexts/ActivityContext';
-import { shortenWalletAddress } from '../utils';
 import { SEPOLIA_ETHERSCAN_URL } from '../constants';
 
 function ActivityFeed() {
