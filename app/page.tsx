@@ -86,7 +86,7 @@ function Page() {
             <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-400 ring-1 ring-white/10 hover:ring-white/20">
               Announcing the Mainline Community Engine |
               {' '}
-              <a href="https://getmainline.io" target="_blank" className="font-semibold text-white" rel="noreferrer">
+              <a href="https://www.getmainline.io/community-engine-dapp" target="_blank" className="font-semibold text-white" rel="noreferrer">
                 <span className="absolute inset-0" aria-hidden="true" />
                 Read more
                 {' '}
